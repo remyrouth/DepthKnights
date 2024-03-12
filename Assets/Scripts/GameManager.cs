@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     // the other scripts should not be calling this one. 
     public float playerReachRadius = 2f;
     public GameObject cursorObject;
+    public GameObject Menu;
     private SpriteRenderer cursorSprite;
     public Color playerTurnColor;
     public Color batTurnColor;
@@ -28,6 +29,15 @@ public class GameManager : MonoBehaviour
     private void Update() {
         Vector3 currentMousePosition = GetMousePosition();
         bool isPlayerTurn = IsPlayerTurn(currentMousePosition);
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {   
+            if(!Menu.activeInHierarchy){
+                Menu.SetActive(true);
+            }else{
+                Menu.SetActive(false);
+            }
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             if (isPlayerTurn) {

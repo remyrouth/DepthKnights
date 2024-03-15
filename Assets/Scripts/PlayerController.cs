@@ -255,7 +255,8 @@ public class PlayerController : MonoBehaviour
         wallhangChild.transform.localScale = new Vector3(Mathf.Abs(wallhangChild.transform.localScale.x),
                                     wallhangChild.transform.localScale.y, wallhangChild.transform.localScale.z); 
         // Check if the Control key is pressed
-        if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
+        // if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
+        if (ADCheck == 0f && !IsGrounded())
         {
             CrouchAndHang();
         } else {

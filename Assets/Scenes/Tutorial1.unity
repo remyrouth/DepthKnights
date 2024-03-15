@@ -556,7 +556,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: Hold Cntrl while moving into walls, then jump to walljump
+  m_Text: While in the air and not pressing A or D you will wall hang. Then press
+    spacebar to jump
 --- !u!222 &311952581
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1255,8 +1256,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.2931, y: 0.12905002, z: 0}
-    m_Extent: {x: 2.4111, y: 4.01315, z: 0}
+    m_Center: {x: 0.2929001, y: 0.12814987, z: 0}
+    m_Extent: {x: 2.4103, y: 4.01355, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0

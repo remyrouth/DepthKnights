@@ -34,28 +34,27 @@ public class GameManager : MonoBehaviour
         SetUpWaterRegions();
     }
 
-    private void Update() {
+    private void Update()
+    {
         Vector3 currentMousePosition = GetMousePosition();
         bool isPlayerTurn = IsPlayerTurn(currentMousePosition);
         if (Input.GetKeyDown(KeyCode.Escape))
-        {   
-            if(!Menu.activeInHierarchy){
-                Menu.SetActive(true);
-                pc.ChangePlayStatus(false);
-            }else{
-                Menu.SetActive(false);
-                pc.ChangePlayStatus(true);
-            }
+        {
+            MenuControl();
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (isPlayerTurn) {
+            if (isPlayerTurn)
+            {
                 // Debug.Log("attack debug activated");
                 pc.StartEdenAttackType1();
-            } else {
+            }
+            else
+            {
                 // gbc.SetTargetPosition(currentMousePosition);
-                if (gbc != null) {
+                if (gbc != null)
+                {
                     gbc.ShootBullet();
                 }
                 // gbc.ShootBullet();
@@ -64,11 +63,15 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            if (isPlayerTurn) {
+            if (isPlayerTurn)
+            {
                 // Debug.Log("attack debug activated");
                 // pc.StartEdenAttackType2();
-            } else {
-                if (gbc != null) {
+            }
+            else
+            {
+                if (gbc != null)
+                {
                     gbc.SetTargetPosition(currentMousePosition);
                 }
                 // gbc.SetTargetPosition(currentMousePosition);s
@@ -85,19 +88,24 @@ public class GameManager : MonoBehaviour
     {
         cursorObject.transform.position = new Vector3(newPos.x + offset.x, newPos.y + offset.y, 0f);
 
-        if (colorDetermination) {
+        if (colorDetermination)
+        {
             cursorSprite.color = playerTurnColor;
-        } else {
+        }
+        else
+        {
             cursorSprite.color = batTurnColor;
         }
     }
 
-    public Vector3 GetMousePosition() {
+    public Vector3 GetMousePosition()
+    {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return mousePosition;
     }
 
-    public bool IsPlayerTurn(Vector3 positionClicked) {     // its taking vector3, it should be taking vector2
+    public bool IsPlayerTurn(Vector3 positionClicked)
+    {     // its taking vector3, it should be taking vector2
         Vector3 mousPos = GetMousePosition();
         mousPos.z = 0f;
         float distance = Vector3.Distance(pc.gameObject.transform.position, mousPos);
@@ -105,16 +113,19 @@ public class GameManager : MonoBehaviour
         return (distance < playerReachRadius);
     }
 
-    public void InitializeBat(GatBatController newBat) {
+    public void InitializeBat(GatBatController newBat)
+    {
         gbc = newBat;
     }
 
-    public void InitializeEden(PlayerController newEden) {
+    public void InitializeEden(PlayerController newEden)
+    {
         pc = newEden;
     }
 
 
-    private void SetUpWaterRegions() {
+    private void SetUpWaterRegions()
+    {
         playerSprite = GameObject.FindObjectOfType<PlayerGFX>().GetComponent<SpriteRenderer>();
 
 
@@ -134,7 +145,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public bool PlayerInWaterCheck() {
+    public bool PlayerInWaterCheck()
+    {
         float posX = playerSprite.bounds.center.x;
         float posY = playerSprite.bounds.min.y;
 
@@ -143,14 +155,27 @@ public class GameManager : MonoBehaviour
         {
             // Debug.Log("Object on Water layer: " + waterSprite.name);
             if (posX < waterSprite.bounds.max.x && posX > waterSprite.bounds.min.x &&
-                posY < waterSprite.bounds.max.y && posY > waterSprite.bounds.min.y) {
-                    return true;
-                }
+                posY < waterSprite.bounds.max.y && posY > waterSprite.bounds.min.y)
+            {
+                return true;
+            }
         }
         // return playerInWater;
         return false;
     }
 
-
+    public void MenuControl()
+    {
+        if (!Menu.activeInHierarchy)
+        {
+            Menu.SetActive(true);
+            pc.ChangePlayStatus(false);
+        }
+        else
+        {
+            Menu.SetActive(false);
+            pc.ChangePlayStatus(true);
+        }
+    }
 
 }

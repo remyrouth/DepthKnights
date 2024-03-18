@@ -46,10 +46,10 @@ public class LeverActivator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ToggleSwitch();
-        }
+        // if (Input.GetKeyDown(KeyCode.E))
+        // {
+        //     ToggleSwitch();
+        // }
 
         float newXPos = bridgeObject.transform.position.x;
 
@@ -79,7 +79,7 @@ public class LeverActivator : MonoBehaviour
             }
         }
     }
-    void ToggleSwitch()
+    public void ToggleSwitch()
     {
         isSwitchedOn = !isSwitchedOn;
         List<AudioClip> temp = new List<AudioClip>();

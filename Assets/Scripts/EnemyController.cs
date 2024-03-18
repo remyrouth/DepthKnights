@@ -179,7 +179,7 @@ public class EnemyController : MonoBehaviour
             forwardDirection = Vector2.left;
         }
 
-        int groundLayerMask = LayerMask.GetMask("Ground");
+        int groundLayerMask = LayerMask.GetMask("Ground", "Breakable");
 
         // Raycast to the right
         RaycastHit2D hitRight = Physics2D.Raycast(transform.position, forwardDirection, attackRange, groundLayerMask);

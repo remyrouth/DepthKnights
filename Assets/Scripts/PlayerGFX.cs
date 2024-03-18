@@ -24,8 +24,9 @@ public class PlayerGFX : MonoBehaviour
     private Vector2 previousPosition;
 
 
-    // Soun
+    // Sound
     private SoundManager sm;
+    private GameManager gm;
     public float footStepVolume = 0.8f;
     public List<AudioClip> footStepClips = new List<AudioClip>();
     public float waterStepVolume = 0.8f;
@@ -34,25 +35,11 @@ public class PlayerGFX : MonoBehaviour
     public float swordVolume = 0.8f;
     public List<AudioClip> swordSwingClips = new List<AudioClip>();
     public List<AudioClip> JumpClips = new List<AudioClip>();
+    public float dashVolume = 0.8f;
+    public List<AudioClip> dashClips = new List<AudioClip>();
     public List<AudioClip> wallHangClips = new List<AudioClip>();
 
     
-
-    public void StepSoundSoundTrigger() {
-        if (sm.PlayerInWaterCheck()) {
-            sm.PlayerSound(waterStepClips, waterStepVolume);
-        } else {
-            sm.PlayerSound(footStepClips, footStepVolume);
-        }
-        // sm.PlayerSound(footStepClips, footstepVolume);
-    }
-
-    public void SwordSwingSoundTrigger() {
-        sm.PlayerSound(swordSwingClips, swordVolume);
-    }
-
-
-
     // 0 = idle
     // 1 = run
     // 2 = jump up
@@ -65,6 +52,7 @@ public class PlayerGFX : MonoBehaviour
     // 8 = attack
 
     // 9 = being damaged/hurt
+    // 10 = dead
     void Start()
     {
         rb = GetComponentInParent<Rigidbody2D>();
@@ -73,7 +61,25 @@ public class PlayerGFX : MonoBehaviour
         pc = transform.parent.parent.GetComponent<PlayerController>();
         animator = GetComponent<Animator>(); 
         sm = FindObjectOfType<SoundManager>();
+        gm = FindObjectOfType<GameManager>();
 
+    }
+
+    public void StepSoundSoundTrigger() {
+        if (gm.PlayerInWaterCheck()) {
+            sm.PlayerSound(waterStepClips, waterStepVolume);
+        } else {
+            sm.PlayerSound(footStepClips, footStepVolume);
+        }
+        // sm.PlayerSound(footStepClips, footstepVolume);
+    }
+
+    public void SwordSwingSoundTrigger() {
+        sm.PlayerSound(swordSwingClips, swordVolume);
+    }
+
+    public void DashSoundTrigger() {
+        sm.PlayerSound(dashClips, dashVolume);
     }
 
     void Update()
@@ -100,6 +106,10 @@ public class PlayerGFX : MonoBehaviour
 
     private void EndAttack1() {
         pc.EndEdenAttackType1();
+    }
+
+    private void EndHurtStatus() {
+        pc.EndBeingDamagedStatus();
     }
 
     private void TriggerFrameAttackDamage() {

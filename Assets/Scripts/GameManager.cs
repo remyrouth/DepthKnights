@@ -20,10 +20,18 @@ public class GameManager : MonoBehaviour
     public Vector3 offset;
 
 
+
+
+    private SpriteRenderer playerSprite;
+    private List<SpriteRenderer> waterList;
+    private bool playerInWater = false;
+
+
     void Start()
     {
         // cursorObject = transform.Find("Cursor").gameObject;
         cursorSprite = cursorObject.GetComponent<SpriteRenderer>();
+        SetUpWaterRegions();
     }
 
     private void Update() {
@@ -101,6 +109,44 @@ public class GameManager : MonoBehaviour
 
     public void InitializeEden(PlayerController newEden) {
         pc = newEden;
+    }
+
+
+    private void SetUpWaterRegions() {
+        playerSprite = GameObject.FindObjectOfType<PlayerGFX>().GetComponent<SpriteRenderer>();
+
+
+        waterList = new List<SpriteRenderer>();
+        GameObject[] waterObjects = GameObject.FindGameObjectsWithTag("Water");
+        foreach (GameObject waterObject in waterObjects)
+        {
+            SpriteRenderer waterSprite = waterObject.GetComponent<SpriteRenderer>();
+            if (waterSprite != null)
+            {
+                waterList.Add(waterSprite);
+            }
+            else
+            {
+                Debug.LogWarning("Water object '" + waterObject.name + "' does not have a SpriteRenderer component.");
+            }
+        }
+    }
+
+    public bool PlayerInWaterCheck() {
+        float posX = playerSprite.bounds.center.x;
+        float posY = playerSprite.bounds.min.y;
+
+        // Log the names of the objects to the console
+        foreach (SpriteRenderer waterSprite in waterList)
+        {
+            // Debug.Log("Object on Water layer: " + waterSprite.name);
+            if (posX < waterSprite.bounds.max.x && posX > waterSprite.bounds.min.x &&
+                posY < waterSprite.bounds.max.y && posY > waterSprite.bounds.min.y) {
+                    return true;
+                }
+        }
+        // return playerInWater;
+        return false;
     }
 
 

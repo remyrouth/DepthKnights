@@ -948,6 +948,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9043b803b4c814f8688ab7e0c84c9726, type: 3}
   - {fileID: 8300000, guid: 9a5a4b423727a49359fa1fb7bf436952, type: 3}
   JumpClips: []
+  dashVolume: 0.3
+  dashClips:
+  - {fileID: 8300000, guid: c7a7ac117d6e4406ca09e6524860587b, type: 3}
   wallHangClips: []
 --- !u!212 &7070358701451182866
 SpriteRenderer:

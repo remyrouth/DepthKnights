@@ -17,7 +17,7 @@ TagManager:
   - Breakable
   - Enemy
   - Water
-  - 
+  - Interactable
   - 
   - 
   - 
@@ -42,11 +42,17 @@ TagManager:
   - name: Parallax
     uniqueID: 3091721185
     locked: 0
+  - name: Background
+    uniqueID: 739829469
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Characters
     uniqueID: 1263236595
+    locked: 0
+  - name: Enemies
+    uniqueID: 924525313
     locked: 0
   - name: Physical Environment
     uniqueID: 40408783

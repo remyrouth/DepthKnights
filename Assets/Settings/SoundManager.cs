@@ -6,6 +6,7 @@ public class SoundManager : MonoBehaviour
 {
 
     public List<AudioClip> musicClips = new List<AudioClip>();
+    public bool playBackGround = false;
 
     private AudioSource environment;
     private AudioSource playerAction;
@@ -34,48 +35,13 @@ public class SoundManager : MonoBehaviour
         backgroundMusicSource1.loop = true;
         backgroundMusicSource2.loop = true;
         backgroundMusicSource2.volume = 0f;
-        PlayRandomSound(musicClips, backgroundMusicSource1, 0.078f);
+        if (playBackGround) {
+            PlayRandomSound(musicClips, backgroundMusicSource1, 0.078f);
+        }
+        
         // backgroundMusicSource.volume = 0.078f;
-
-        SetUpWaterRegions();
     }
 
-    private void SetUpWaterRegions() {
-        playerSprite = GameObject.FindObjectOfType<PlayerGFX>().GetComponent<SpriteRenderer>();
-
-
-        waterList = new List<SpriteRenderer>();
-        GameObject[] waterObjects = GameObject.FindGameObjectsWithTag("Water");
-        foreach (GameObject waterObject in waterObjects)
-        {
-            SpriteRenderer waterSprite = waterObject.GetComponent<SpriteRenderer>();
-            if (waterSprite != null)
-            {
-                waterList.Add(waterSprite);
-            }
-            else
-            {
-                Debug.LogWarning("Water object '" + waterObject.name + "' does not have a SpriteRenderer component.");
-            }
-        }
-    }
-
-    public bool PlayerInWaterCheck() {
-        float posX = playerSprite.bounds.center.x;
-        float posY = playerSprite.bounds.min.y;
-
-        // Log the names of the objects to the console
-        foreach (SpriteRenderer waterSprite in waterList)
-        {
-            // Debug.Log("Object on Water layer: " + waterSprite.name);
-            if (posX < waterSprite.bounds.max.x && posX > waterSprite.bounds.min.x &&
-                posY < waterSprite.bounds.max.y && posY > waterSprite.bounds.min.y) {
-                    return true;
-                }
-        }
-        // return playerInWater;
-        return false;
-    }
     
     public void EnvironmentalSound(List<AudioClip> clipList, float volume) {
         environment.Stop();

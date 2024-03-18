@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Being Damaged Variables")]
     public float damageStatusLength = 0.5f;
     private bool isBeingDamaged = false;
+    private bool isDead = false;
 
     void Start()
     {
@@ -102,14 +103,20 @@ public class PlayerController : MonoBehaviour
             health = Mathf.Max(0, health);
             healthBar.value = (health/maxHealth);
 
-            isBeingDamaged = true;
-            Invoke("EndBeingDamagedStatus", damageStatusLength);
+
+            if (health == 0) {
+                isDead = true;
+            } else {
+                isBeingDamaged = true;
+            }
+            // Invoke("EndBeingDamagedStatus", damageStatusLength);
         }
     }
 
-    private void EndBeingDamagedStatus() {
+    public void EndBeingDamagedStatus() {
         isBeingDamaged = false;
     }
+
 
     // called by GameManager
     public void StartEdenAttackType1() {
@@ -136,11 +143,12 @@ public class PlayerController : MonoBehaviour
         } 
 
         // Debug.Log("damageActivated changed to true, was orignally " + damageActivated);
-        RaycastHit2D attackHit = Physics2D.Raycast(transform.position, direction, attackRange, LayerMask.GetMask("Breakable", "Enemy"));
+        RaycastHit2D attackHit = Physics2D.Raycast(transform.position, direction, attackRange, LayerMask.GetMask("Breakable", "Enemy", "Interactable"));
 
         if (attackHit.collider != null) {
             BreakableController bc = attackHit.collider.gameObject.GetComponent<BreakableController>();
             if (bc != null) {
+                Debug.Log("Breakable hit");
                 bc.DecreaseHealth();
                 return;
             }
@@ -148,10 +156,17 @@ public class PlayerController : MonoBehaviour
 
             EnemyController ec = attackHit.collider.gameObject.GetComponent<EnemyController>();
             if (ec != null) {
+                Debug.Log("Enemy hit");
                 ec.DecreaseHealth();
                 return;
             }
 
+            LeverActivator la = attackHit.collider.gameObject.GetComponent<LeverActivator>();
+            if (la != null) {
+                Debug.Log("Lever hit");
+                la.ToggleSwitch();
+                return;
+            }
 
             Debug.Log("called on nothing");
         }
@@ -191,7 +206,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void HandleScriptedInput() {
-        if (canPlay) {
+        if (canPlay || isDead) {
             return;
         }
 
@@ -212,7 +227,11 @@ public class PlayerController : MonoBehaviour
     }
 
     private void HandleInput() {
-        if (!canPlay && !isBeingDamaged) {
+        if (!canPlay || isDead) {
+            return;
+        }
+
+        if (isBeingDamaged) {
             return;
         }
 
@@ -436,6 +455,10 @@ public class PlayerController : MonoBehaviour
     public bool WallHangCheck() {
         return (!IsGrounded() && isWallInDashDirection() &&
          stamina >= 5f && !jumpButtonsHeldDown);
+    }
+
+    public bool isDeadCheck() {
+        return isDead;
     }
     
     void Jump()

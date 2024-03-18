@@ -33,8 +33,10 @@ public class GameManager : MonoBehaviour
         {   
             if(!Menu.activeInHierarchy){
                 Menu.SetActive(true);
+                pc.ChangePlayStatus(false);
             }else{
                 Menu.SetActive(false);
+                pc.ChangePlayStatus(true);
             }
         }
 

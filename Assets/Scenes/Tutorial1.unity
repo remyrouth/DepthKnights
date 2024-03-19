@@ -1181,8 +1181,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.29280007, y: 0.1283499, z: 0}
-    m_Extent: {x: 2.4109, y: 4.01405, z: 0}
+    m_Center: {x: 0.29275, y: 0.12905002, z: 0}
+    m_Extent: {x: 2.41045, y: 4.01355, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -25369,7 +25369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1831295405
 RectTransform:
   m_ObjectHideFlags: 0

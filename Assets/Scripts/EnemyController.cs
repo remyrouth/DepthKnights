@@ -22,6 +22,7 @@ public class EnemyController : MonoBehaviour
     public float attackingTimer = 0.3f;
     public float idleAfterAttackTimer = 0.3f;
     public float attackRange;
+    public float smackForce = 1f;
 
     public Slider healthBar;
     public Capabilities entityCapabilities;
@@ -162,6 +163,10 @@ public class EnemyController : MonoBehaviour
         if (hitForward.collider != null) {
             Debug.Log("Found player");
             hitForward.collider.gameObject.GetComponent<PlayerController>().DecreaseHealth(1f);
+            Rigidbody2D rb = hitForward.collider.gameObject.GetComponent<Rigidbody2D>();
+            Vector2 directionAway = (Vector2)transform.position - rb.position;
+            directionAway.Normalize();
+            rb.AddForce(directionAway * -1 * smackForce, ForceMode2D.Impulse);
         } else {
             Debug.Log("Did not find player");
         }

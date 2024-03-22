@@ -44,7 +44,15 @@ public class DialogueController : MonoBehaviour
                     // Debug.Log("Next display triggered");
                     dialogueVisuals dv = dvList[dvListIndex];
                     DisplayDialogue(dv.textString, dv.isOnRightSide, dv.speakerCharacter, dv.offset, dv.sizeScale);
+
                 }
+            }
+        } else {
+            GameObject textParent = text.gameObject.transform.parent.gameObject;
+            if (textParent.activeSelf) {
+                EndDialogue();
+                GameManager gm = FindObjectOfType<GameManager>();
+                gm.MenuControl();
             }
         }
 

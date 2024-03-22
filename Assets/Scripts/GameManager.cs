@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         cursorSprite.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
     }
 
-    private void MenuControl()
+    public void MenuControl()
     {
         switch (GameState)
         {

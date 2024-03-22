@@ -488,7 +488,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6037769077176543107}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 25.93, y: -11.654, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -516,6 +516,7 @@ MonoBehaviour:
   attackingTimer: 2.65
   idleAfterAttackTimer: 1
   attackRange: 1
+  smackForce: 8
   healthBar: {fileID: 9014286449416924597}
   entityCapabilities: 0
   damagedSoundVolume: 0.2

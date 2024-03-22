@@ -18,6 +18,20 @@ public class DialogueInstance : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // Debug.Log("Collision Enter with player: " + collision.gameObject.name);
+            // Additional actions specific to collision with the player
+            dc.NewInstance(this);
+            Collider2D collider = GetComponent<Collider2D>();
+            if (collider != null) {
+                Destroy(collider);
+            }
+        }
+    }
+
     public dialogueVisuals FirstDialogue() {
         return dialogueSequence[0];
     } 

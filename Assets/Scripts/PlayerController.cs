@@ -150,6 +150,7 @@ public class PlayerController : MonoBehaviour
             if (bc != null) {
                 Debug.Log("Breakable hit");
                 bc.DecreaseHealth();
+                DealDamageOnTriggerAttackFrame();
                 return;
             }
             // bc.DecreaseHealth();
@@ -158,6 +159,7 @@ public class PlayerController : MonoBehaviour
             if (ec != null) {
                 Debug.Log("Enemy hit");
                 ec.DecreaseHealth();
+                DealDamageOnTriggerAttackFrame();
                 return;
             }
 
@@ -165,6 +167,7 @@ public class PlayerController : MonoBehaviour
             if (la != null) {
                 Debug.Log("Lever hit");
                 la.ToggleSwitch();
+                DealDamageOnTriggerAttackFrame();
                 return;
             }
 
@@ -361,6 +364,8 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * direction.x, transform.localScale.y, transform.localScale.z); 
+        GameObject canvas = healthBar.transform.parent.gameObject;
+        canvas.transform.localScale = new Vector3(Mathf.Abs(canvas.transform.localScale.x) * direction.x, canvas.transform.localScale.y, canvas.transform.localScale.z); 
 
         Vector3 movement = new Vector3(horizontalInput, 0, 0);
         transform.Translate(movement.x * speed * Time.deltaTime, 0, 0);

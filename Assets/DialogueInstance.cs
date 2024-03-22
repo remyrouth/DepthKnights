@@ -13,15 +13,17 @@ public class DialogueInstance : MonoBehaviour
     {
         dc = FindObjectOfType<DialogueController>();
         if (startOption == Trigger.OnSpawn) {
-            // dc.DisplayDialogue(currentString, true);
+            // Debug.Log("Instanced method triggered");
             dc.NewInstance(this);
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public dialogueVisuals FirstDialogue() {
+        return dialogueSequence[0];
+    } 
+
+    public List<dialogueVisuals> FullList() {
+        return dialogueSequence;
     }
 
     public enum Trigger {

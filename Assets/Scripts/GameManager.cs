@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+    // Define different states using enums
+    public enum ControlState
+    {
+        Play,
+        Menu,
+        Dialogue,
+        Dead
+    }
+    private ControlState GameState;
+
+    
     public GatBatController gbc;
     public PlayerController pc;
-
-
+    private DialogueController dc;
     // this script shoudl activate teh attacks for
     // both the character and the gat bat
     // the other scripts should not be calling this one. 
@@ -32,16 +43,79 @@ public class GameManager : MonoBehaviour
         // cursorObject = transform.Find("Cursor").gameObject;
         cursorSprite = cursorObject.GetComponent<SpriteRenderer>();
         SetUpWaterRegions();
+        dc = FindObjectOfType<DialogueController>();
     }
 
     private void Update()
     {
-        Vector3 currentMousePosition = GetMousePosition();
-        bool isPlayerTurn = IsPlayerTurn(currentMousePosition);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             MenuControl();
         }
+
+        Vector3 currentMousePosition = GetMousePosition();
+        bool isPlayerTurn = IsPlayerTurn(currentMousePosition);
+
+        switch (GameState)
+        {
+
+
+            case ControlState.Play:
+                pc.ChangePlayStatus(true);
+                Menu.SetActive(false);
+                PlayerClickControls(isPlayerTurn, currentMousePosition);
+                MoveCursor(currentMousePosition, isPlayerTurn);
+                break;
+
+            case ControlState.Menu:
+
+                pc.ChangePlayStatus(false);
+                Menu.SetActive(true);
+                MoveCursor(currentMousePosition, isPlayerTurn);
+                break;
+
+            case ControlState.Dialogue:
+
+                pc.ChangePlayStatus(false);
+                Menu.SetActive(false);
+                NullifyCrossHair();
+                break;
+
+            case ControlState.Dead:
+
+                Menu.SetActive(false);
+                pc.ChangePlayStatus(false);
+
+                break;
+        }
+
+    }
+
+    public void DialogueStateStart() {
+        GameState = ControlState.Dialogue;
+    }
+
+    private void NullifyCrossHair() {
+        cursorSprite.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+    }
+
+    private void MenuControl()
+    {
+        switch (GameState)
+        {
+            case ControlState.Play:
+                GameState = ControlState.Menu;
+                break;
+
+            default:
+                GameState = ControlState.Play;
+                dc.EndDialogue();
+                break;
+        }
+    }
+
+    private void PlayerClickControls(bool isPlayerTurn, Vector3 currentMousePosition) {
+
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -74,14 +148,8 @@ public class GameManager : MonoBehaviour
                 {
                     gbc.SetTargetPosition(currentMousePosition);
                 }
-                // gbc.SetTargetPosition(currentMousePosition);s
-                // gbc.ShootBullet();
             }
         }
-
-        MoveCursor(currentMousePosition, isPlayerTurn);
-
-        // DrawCircle();
     }
 
     void MoveCursor(Vector3 newPos, bool colorDetermination)
@@ -164,18 +232,5 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    public void MenuControl()
-    {
-        if (!Menu.activeInHierarchy)
-        {
-            Menu.SetActive(true);
-            pc.ChangePlayStatus(false);
-        }
-        else
-        {
-            Menu.SetActive(false);
-            pc.ChangePlayStatus(true);
-        }
-    }
 
 }

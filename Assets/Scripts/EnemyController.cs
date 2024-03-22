@@ -110,7 +110,7 @@ public class EnemyController : MonoBehaviour
 
     private void MoveFoward() {
         if (!isAttacking) {
-            Debug.Log("Moving Forward");
+            // Debug.Log("Moving Forward");
             if (facingLeft) {
                 transform.position = new Vector3(transform.position.x - (speed * Time.deltaTime), transform.position.y, transform.position.z); 
             } else {

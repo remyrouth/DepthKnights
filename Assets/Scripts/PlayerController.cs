@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
             if (bc != null) {
                 Debug.Log("Breakable hit");
                 bc.DecreaseHealth();
-                DealDamageOnTriggerAttackFrame();
+                // DealDamageOnTriggerAttackFrame();
                 return;
             }
             // bc.DecreaseHealth();
@@ -159,7 +159,7 @@ public class PlayerController : MonoBehaviour
             if (ec != null) {
                 Debug.Log("Enemy hit");
                 ec.DecreaseHealth();
-                DealDamageOnTriggerAttackFrame();
+                // DealDamageOnTriggerAttackFrame();
                 return;
             }
 
@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour
             if (la != null) {
                 Debug.Log("Lever hit");
                 la.ToggleSwitch();
-                DealDamageOnTriggerAttackFrame();
+                // DealDamageOnTriggerAttackFrame();
                 return;
             }
 

@@ -83,10 +83,34 @@ public class EnemyController : MonoBehaviour
                 SlimeState();
                 break;
 
+            case Capabilities.Intelligent:
+                // Handle BrainlessWander state
+                GoblinState();
+                break;
+
             default:
                 // Handle any unexpected state
                 // Debug.LogWarning("Unhandled player state");
                 break;
+        }
+    }
+
+    private void GoblinState() {
+        // Debug.Log("isTakingDamage: " + isTakingDamage);
+        if (isTakingDamage || isAttacking || isDead) {
+            if (isDead) {
+                egfx.TriggerDeathAnim();
+            }
+            return;
+        }
+
+        egfx.TriggerMoveAnim();
+        if (CanMoveForward()) {
+            // Debug.Log("Moving Forward");
+            AttackForward();
+            MoveFoward();
+        } else {
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
     }
 
@@ -154,12 +178,6 @@ public class EnemyController : MonoBehaviour
             forwardDirection = Vector2.left;
         }
         RaycastHit2D hitForward = Physics2D.Raycast(transform.position, forwardDirection, attackRange, groundLayerMask);
-        // if (hitForward.collider.gameObject.tag == "Player") {
-        //     hitForward.collider.gameObject.GetComponent<PlayerController>().DecreaseHealth(10f);
-        //     Debug.Log("Found player");
-        // } else {
-        //     Debug.Log("Attacked with damage but did not find player");
-        // }
         if (hitForward.collider != null) {
             Debug.Log("Found player");
             hitForward.collider.gameObject.GetComponent<PlayerController>().DecreaseHealth(1f);
@@ -207,11 +225,20 @@ public class EnemyController : MonoBehaviour
     }
 
 
+    private bool isPlayerToRight() {
 
+
+        return true;
+    }
     public void DecreaseHealth() {
         if (isTakingDamage) {
             return;
         }
+
+        if (entityCapabilities != Capabilities.BrainlessWander) {
+            // face player
+        }
+
         // Debug.Log("Decreased Health");
         health--;
         health = Mathf.Max(0, health);

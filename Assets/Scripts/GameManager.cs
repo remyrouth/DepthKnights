@@ -135,21 +135,21 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            if (isPlayerTurn)
-            {
-                // Debug.Log("attack debug activated");
-                // pc.StartEdenAttackType2();
-            }
-            else
-            {
-                if (gbc != null)
-                {
-                    gbc.SetTargetPosition(currentMousePosition);
-                }
-            }
-        }
+        // if (Input.GetMouseButtonDown(1))
+        // {
+        //     if (isPlayerTurn)
+        //     {
+        //         // Debug.Log("attack debug activated");
+        //         // pc.StartEdenAttackType2();
+        //     }
+        //     else
+        //     {
+        //         if (gbc != null)
+        //         {
+        //             // gbc.SetTargetPosition(currentMousePosition);
+        //         }
+        //     }
+        // }
     }
 
     void MoveCursor(Vector3 newPos, bool colorDetermination)

@@ -14,18 +14,26 @@ public class EnemyController : MonoBehaviour
         Dummy, // has no action
         FlyableIntelligent
     }
+    [Header("Behavior Variables")]
     public string gfxChildName = "gfx";
+    public float attentionSpan = 4f;
+    public float detectionRange = 6f;
+    public Capabilities entityCapabilities;
+    private bool isAgro = false;
 
+    [Header("Stats Variables")]
+    public Slider healthBar;
     public float health = 3f;
     public float takingDamageTimer = 0.3f;
     public float speed;
+
+    [Header("Attacking Variables")]
     public float attackingTimer = 0.3f;
     public float idleAfterAttackTimer = 0.3f;
     public float attackRange;
     public float smackForce = 1f;
 
-    public Slider healthBar;
-    public Capabilities entityCapabilities;
+    [Header("Sound Variables")]
     public float damagedSoundVolume = 0.8f;
     public AudioClip damagedSound;
 
@@ -51,6 +59,8 @@ public class EnemyController : MonoBehaviour
     private Animator animator;
     private EnemyGFX egfx;
     private SoundManager sm;
+    private PlayerController pc;
+    private Timer timer;
 
 
 
@@ -61,6 +71,11 @@ public class EnemyController : MonoBehaviour
         egfx = transform.Find(gfxChildName).GetComponent<EnemyGFX>();
         maxHealth = health;
         sm = FindObjectOfType<SoundManager>();
+        pc = FindObjectOfType<PlayerController>();
+
+        if (entityCapabilities != Capabilities.BrainlessWander) {
+            timer = gameObject.AddComponent<Timer>();
+        }
     }
 
     void Update() {
@@ -69,11 +84,8 @@ public class EnemyController : MonoBehaviour
         }
         DirectionControl();
 
-
-
         SetEnemyState(entityCapabilities);
     }
-
 
     void SetEnemyState(Capabilities newState) {
         switch (newState)
@@ -104,13 +116,53 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
+        // Debug.Log("AgroState: " + isAgro + " |    time: " + timer.GetTime() + "     attention span is: " + attentionSpan);
+
         egfx.TriggerMoveAnim();
         if (CanMoveForward()) {
             // Debug.Log("Moving Forward");
+            DetectPlayer();
             AttackForward();
             MoveFoward();
         } else {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        }
+    }
+
+    private void DetectPlayer() {
+        if (timer.GetTime() > attentionSpan) {
+            isAgro = false;
+        } else {
+            isAgro = true;
+        }
+        isPlayerInFront();
+
+    }
+
+    private void isPlayerInFront() {
+        Vector2 forwardDirection = Vector2.right;
+        if (facingLeft) {
+            forwardDirection = Vector2.left;
+        }
+        int groundLayerMask = LayerMask.GetMask("Player", "Ground");
+        RaycastHit2D forward = Physics2D.Raycast(transform.position, forwardDirection, detectionRange, groundLayerMask);
+
+        // RaycastHit2D forward = Physics2D.Raycast(transform.position, forwardDirection, detectionRange);
+        Debug.DrawRay(transform.position, forwardDirection * detectionRange, Color.red);
+
+        bool didDetect = (forward.collider != null); // if its not null, it means a player was detected
+        bool hitPlayer = false;
+
+        if (didDetect) {
+            string hitTag = forward.collider.tag;
+            if (hitTag == "Player") {
+                hitPlayer = true;
+            }
+        }
+
+        if (hitPlayer) {
+            Debug.Log("ENEMY RAYCAST HAS HIT PLAYER");
+            timer.ResetTimer();
         }
     }
 
@@ -133,7 +185,54 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    // if we're chasing the player (this enemy is agrovated/agro), we should stop in front of the player
+    private bool playerInStopRange() {
+        float playerX = pc.gameObject.transform.position.x;
+        float selfX = transform.position.x;
+
+
+        // we should also turn around if they're on the other side and we're still agro
+        float sideTell = playerX - selfX;
+        if (sideTell > 0f) {
+            // means player is to the right, due to having a greater x
+            if (facingLeft) {
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+                facingLeft = !facingLeft;
+            }
+        } else {
+            // means player is to the left, due to having a smaller x
+            if (!facingLeft) {
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+                facingLeft = !facingLeft;
+            }
+        }
+
+
+        if (facingLeft) {
+            float coordDiff = playerX - selfX;
+            // player is on left, so smaller x... and selfx is larger
+            // so coord diff will be negative but greater than -0.2f
+            bool inStopRange = coordDiff < 0f && coordDiff > -0.4f;
+            return inStopRange;
+        } else {
+            float coordDiff = playerX - selfX;
+            // player is on right, so bigger x... and selfx is smaller
+            // so coord diff will be positive but less than 0.2f
+            bool inStopRange = coordDiff > 0f && coordDiff < 0.4f;
+            return inStopRange;
+        }
+
+        // transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+
+    }
+
     private void MoveFoward() {
+        if (isAgro) {
+            if (playerInStopRange()) {
+                return;
+            }
+        }
+
         if (!isAttacking) {
             // Debug.Log("Moving Forward");
             if (facingLeft) {
@@ -224,12 +323,6 @@ public class EnemyController : MonoBehaviour
 
     }
 
-
-    private bool isPlayerToRight() {
-
-
-        return true;
-    }
     public void DecreaseHealth() {
         if (isTakingDamage) {
             return;
@@ -237,6 +330,8 @@ public class EnemyController : MonoBehaviour
 
         if (entityCapabilities != Capabilities.BrainlessWander) {
             // face player
+            isAgro = true;
+            timer.ResetTimer();
         }
 
         // Debug.Log("Decreased Health");

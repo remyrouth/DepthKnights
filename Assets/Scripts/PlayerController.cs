@@ -59,10 +59,12 @@ public class PlayerController : MonoBehaviour
 
 
     // Being Damaged Variables
-    [Tooltip("Being Damaged Variables")]
+    [Header("Being Damaged Variables")]
     public float damageStatusLength = 0.5f;
     private bool isBeingDamaged = false;
     private bool isDead = false;
+    [Header("BatPos Object")]
+    public GameObject batPosHolder;
 
     void Start()
     {
@@ -464,6 +466,10 @@ public class PlayerController : MonoBehaviour
 
     public bool isDeadCheck() {
         return isDead;
+    }
+
+    public GameObject BatPosFinder() {
+        return batPosHolder;
     }
     
     void Jump()

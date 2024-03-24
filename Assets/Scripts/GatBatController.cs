@@ -12,6 +12,11 @@ public class GatBatController : MonoBehaviour
     public GunData gunChosen;
     private GameManager gm;
 
+    private PlayerController pc;
+    private GameObject PlayerBatHoldPosition;
+
+    public float maxDistanceAllowed = 5f;
+
     private void Start() {
         targetPosition = new Vector2(transform.position.x, transform.position.y);
         batGFX = transform.Find("BatHolder").Find("GatBat").gameObject;
@@ -19,12 +24,26 @@ public class GatBatController : MonoBehaviour
         ChangeGunSprite(gunChosen.gunSprite);
         gm = FindObjectOfType<GameManager>();
         gm.InitializeBat(this);
+
+        pc = FindObjectOfType<PlayerController>();
+        PlayerBatHoldPosition = pc.BatPosFinder();
     }
 
     private void Update()
     {
         LookAtMouse();
+
+        DistanceCheck();
+
+        SetTargetPosition(PlayerBatHoldPosition.transform.position);
         MoveTowardsTarget();
+    }
+
+    private void DistanceCheck() {
+        float distance = Vector3.Distance(transform.position, PlayerBatHoldPosition.transform.position);
+        if (distance > maxDistanceAllowed) {
+            transform.position = PlayerBatHoldPosition.transform.position;
+        }
     }
 
     public void ShootBullet() {
@@ -69,7 +88,7 @@ public class GatBatController : MonoBehaviour
         gunHolster.transform.Find("GunSprite").gameObject.GetComponent<SpriteRenderer>().sprite = newGunSprite;
     }
 
-    public void SetTargetPosition(Vector3 mousPos)
+    private void SetTargetPosition(Vector3 mousPos)
     {
         targetPosition = new Vector2(mousPos.x, mousPos.y);
         

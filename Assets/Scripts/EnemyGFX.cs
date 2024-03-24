@@ -8,6 +8,8 @@ public class EnemyGFX : MonoBehaviour
     // 2 = damaged 
     // 3 = Move
     // 4 = attack
+
+    private bool isAlive = true;
     public int deathAnimInt = 1;
     public int moveAnimInt = 3;
     public int attackAnimInt = 4;
@@ -51,9 +53,13 @@ public class EnemyGFX : MonoBehaviour
 
    public void SetAnimationState(int state)
     {
-        if (animator.GetInteger("AnimState") != state)
+        if (animator.GetInteger("AnimState") != state && isAlive)
         {
             animator.SetInteger("AnimState", state);
+        }
+
+        if (state == 1) { // means we died
+            isAlive = false;
         }
     }
 

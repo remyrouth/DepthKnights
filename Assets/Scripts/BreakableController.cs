@@ -80,7 +80,16 @@ public class BreakableController : MonoBehaviour
         // Disable collider for the main object
         GetComponent<Collider2D>().enabled = false;
 
+
+        TriggerCutscene();
         Invoke("Cleanup", deathTimer);
+    }
+
+    private void TriggerCutscene() {
+        CutsceneTriggeredByObject ctbo = GetComponent<CutsceneTriggeredByObject>();
+        if (ctbo != null) {
+            ctbo.StartScene();
+        }
     }
 
     private void Cleanup() {

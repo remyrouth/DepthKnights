@@ -9,7 +9,7 @@ public class DialogueInstance : MonoBehaviour
     public List<dialogueVisuals> dialogueSequence = new List<dialogueVisuals>();
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         dc = FindObjectOfType<DialogueController>();
         if (startOption == Trigger.OnSpawn) {
@@ -18,10 +18,12 @@ public class DialogueInstance : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        Debug.Log("INSTANCE COLLIDER KNOCKED");
+        if (other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("INSTANCE COLLIDER BY PLAYER");
             // Debug.Log("Collision Enter with player: " + collision.gameObject.name);
             // Additional actions specific to collision with the player
             dc.NewInstance(this);

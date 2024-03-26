@@ -49,7 +49,9 @@ public class DialogueController : MonoBehaviour
             }
         } else {
             GameObject textParent = text.gameObject.transform.parent.gameObject;
+            // if (textParent.activeSelf && dvListIndex > 0) {
             if (textParent.activeSelf) {
+                Debug.Log("dvListIndex: " + dvListIndex);
                 EndDialogue();
                 GameManager gm = FindObjectOfType<GameManager>();
                 gm.MenuControl();
@@ -64,28 +66,57 @@ public class DialogueController : MonoBehaviour
         // return myCoroutine != null && !((myCoroutine as Coroutine).IsCompleted);
         return myCoroutine != null;
     }
-    public void NewInstance(DialogueInstance instance) {
-        if (currentInstance != instance) {
-            gm = FindObjectOfType<GameManager>();
-            gm.DialogueStateStart();
-            currentInstance = instance;
-            dialogueVisuals dv = currentInstance.FirstDialogue();
-            dvList = currentInstance.FullList();
+    // public void NewInstance(DialogueInstance instance) {
+    //     if (currentInstance != instance) {
+    //         gm = FindObjectOfType<GameManager>();
+    //         gm.DialogueStateStart();
+    //         currentInstance = instance;
+    //         dialogueVisuals dv = currentInstance.FirstDialogue();
+    //         dvList = currentInstance.FullList();
 
 
-            GameObject textParent = text.gameObject.transform.parent.gameObject;
-            if (textParent != null && !textParent.activeSelf) {
-                textParent.SetActive(true);
-            }
+    //         GameObject textParent = text.gameObject.transform.parent.gameObject;
+    //         if (textParent != null && !textParent.activeSelf) {
+    //             textParent.SetActive(true);
+    //             Debug.Log("SET ACTIVE HERE");
+    //         }
 
 
 
-            DisplayDialogue(dv.textString, dv.isOnRightSide, dv.speakerCharacter, dv.offset, dv.sizeScale);
+    //         DisplayDialogue(dv.textString, dv.isOnRightSide, dv.speakerCharacter, dv.offset, dv.sizeScale);
+    //     }
+    // }
+
+    public void NewInstance(DialogueInstance instance)
+    {
+        if (currentInstance != null)
+        {
+            // Clean up the existing instance
+            EndDialogue();
+        }
+
+        gm = FindObjectOfType<GameManager>();
+        gm.DialogueStateStart();
+        currentInstance = instance;
+        dialogueVisuals dv = currentInstance.FirstDialogue();
+        dvList = currentInstance.FullList();
+
+        GameObject textParent = text.gameObject.transform.parent.gameObject;
+        if (textParent != null && !textParent.activeSelf)
+        {
+            textParent.SetActive(true);
+            Debug.Log("SET ACTIVE HERE");
+        }
+
+        DisplayDialogue(dv.textString, dv.isOnRightSide, dv.speakerCharacter, dv.offset, dv.sizeScale);
+
+        foreach (dialogueVisuals d in dvList) {
+            Debug.Log(d.textString);
         }
     }
 
     private void TransformEdit(Vector2 offset, float scale) {
-            Debug.Log("EDIT CALLED");
+            // Debug.Log("EDIT CALLED");
             float absScale = Mathf.Abs(scale);
             float abovezero = 1;
             if (scale < 0) {
@@ -146,9 +177,13 @@ public class DialogueController : MonoBehaviour
     public void EndDialogue() {
         GameObject textParent = text.gameObject.transform.parent.gameObject;
         if (textParent != null && textParent.activeSelf) {
+            dvListIndex = 0;
             textParent.SetActive(false);
+            Debug.Log("SET INACTIVE HERE");
             dvList = null;
             currentInstance = null;
+            text.text = "";
+            StopCoroutine(myCoroutine);
         }
     }
 

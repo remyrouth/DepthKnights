@@ -80,6 +80,7 @@ public class EnemyController : MonoBehaviour
 
     void Update() {
         if (isDead) {
+            TriggerCutscene();
             return;
         }
         DirectionControl();
@@ -107,11 +108,19 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    private void TriggerCutscene() {
+        CutsceneTriggeredByObject ctbo = GetComponent<CutsceneTriggeredByObject>();
+        if (ctbo != null) {
+            ctbo.StartScene();
+        }
+    }
+
     private void GoblinState() {
         // Debug.Log("isTakingDamage: " + isTakingDamage);
         if (isTakingDamage || isAttacking || isDead) {
             if (isDead) {
                 egfx.TriggerDeathAnim();
+
             }
             return;
         }

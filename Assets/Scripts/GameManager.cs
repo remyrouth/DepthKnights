@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -38,6 +39,9 @@ public class GameManager : MonoBehaviour
     private bool playerInWater = false;
 
 
+    public void StartScene(string sceneName) {
+        SceneManager.LoadScene(sceneName);
+    }
     void Start()
     {
         // cursorObject = transform.Find("Cursor").gameObject;
@@ -62,7 +66,9 @@ public class GameManager : MonoBehaviour
 
             case ControlState.Play:
                 pc.ChangePlayStatus(true);
-                Menu.SetActive(false);
+                if (Menu != null) {
+                    Menu.SetActive(false);
+                }
                 PlayerClickControls(isPlayerTurn, currentMousePosition);
                 MoveCursor(currentMousePosition, isPlayerTurn);
                 break;
@@ -70,20 +76,27 @@ public class GameManager : MonoBehaviour
             case ControlState.Menu:
 
                 pc.ChangePlayStatus(false);
-                Menu.SetActive(true);
+                if (Menu != null) {
+                    Menu.SetActive(true);
+                }
+                // Menu.SetActive(true);
                 MoveCursor(currentMousePosition, isPlayerTurn);
                 break;
 
             case ControlState.Dialogue:
 
                 pc.ChangePlayStatus(false);
-                Menu.SetActive(false);
+                if (Menu != null) {
+                    Menu.SetActive(false);
+                }
                 NullifyCrossHair();
                 break;
 
             case ControlState.Dead:
 
-                Menu.SetActive(false);
+                if (Menu != null) {
+                    Menu.SetActive(false);
+                }
                 pc.ChangePlayStatus(false);
 
                 break;
@@ -135,21 +148,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // if (Input.GetMouseButtonDown(1))
-        // {
-        //     if (isPlayerTurn)
-        //     {
-        //         // Debug.Log("attack debug activated");
-        //         // pc.StartEdenAttackType2();
-        //     }
-        //     else
-        //     {
-        //         if (gbc != null)
-        //         {
-        //             // gbc.SetTargetPosition(currentMousePosition);
-        //         }
-        //     }
-        // }
     }
 
     void MoveCursor(Vector3 newPos, bool colorDetermination)

@@ -28,12 +28,12 @@ public class PlayerController : MonoBehaviour
     public float wallHangJumpCost = 10f;
     public float wallJumpSideForce = 5f;
 
+    public bool canInteract = false;
     private bool canDash = true;
 
     // Components
     private Rigidbody2D rb;
     private  Collider2D collider;
-
     private PlayerGFX gfx;
     private GameManager gm;
 
@@ -238,6 +238,12 @@ public class PlayerController : MonoBehaviour
 
         if (isBeingDamaged) {
             return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            //Debug.Log("Interacting");
+            gm.checkdistancetoallinteractables();
         }
 
         // rb.constraints =  RigidbodyConstraints2D.FreezeRotation;
@@ -494,6 +500,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //void OnTriggerEnter2D(Collider2D collision)
+    //{   
+    //    if(collision.gameObject.tag == "Interactable"){
+    //        canInteract = true;
+    //        Debug.Log("Interactive Status: " + canInteract);
+    //    }
+    //}
 
+    //void OnTriggerExit2D(Collider2D collision)
+    //{   
+    //    if(collision.gameObject.tag == "Interactable"){
+    //        canInteract = false;
+    //        Debug.Log("Interactive Status: " + canInteract);
+    //    }
+    //}
 
 }

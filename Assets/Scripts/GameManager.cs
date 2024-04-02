@@ -1,6 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -12,11 +17,12 @@ public class GameManager : MonoBehaviour
         Play,
         Menu,
         Dialogue,
+        ShopMenu,
         Dead
     }
     private ControlState GameState;
 
-    
+
     public GatBatController gbc;
     public PlayerController pc;
     private DialogueController dc;
@@ -26,6 +32,7 @@ public class GameManager : MonoBehaviour
     public float playerReachRadius = 2f;
     public GameObject cursorObject;
     public GameObject Menu;
+    public GameObject ShopMenu;
     private SpriteRenderer cursorSprite;
     public Color playerTurnColor;
     public Color batTurnColor;
@@ -39,7 +46,8 @@ public class GameManager : MonoBehaviour
     private bool playerInWater = false;
 
 
-    public void StartScene(string sceneName) {
+    public void StartScene(string sceneName)
+    {
         SceneManager.LoadScene(sceneName);
     }
     void Start()
@@ -50,6 +58,42 @@ public class GameManager : MonoBehaviour
         dc = FindObjectOfType<DialogueController>();
     }
 
+    public void checkdistancetoallinteractables()
+    {
+        // collect all objects with ineractale tag
+        // choose closest one that is also within distance of 3f
+
+        GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("Interactable");
+        GameObject closestObject = null;
+        Vector3 playerPosition = pc.gameObject.transform.position;
+        float closestDistance = Mathf.Infinity;
+        float searchRange = 3f;
+        
+
+        foreach (GameObject obj in objectsWithTag)
+        {
+            float distanceToPlayer = Vector3.Distance(obj.transform.position, playerPosition);
+            if (distanceToPlayer <= searchRange && distanceToPlayer < closestDistance)
+            {
+                closestObject = obj;
+                closestDistance = distanceToPlayer;
+            }
+        }
+
+        if (closestObject != null)
+        {
+            Debug.Log("Closest Object Found: " + closestObject.name);
+            //if(closestObject.name == "Shop"){
+            //    GameState = ControlState.ShopMenu;
+            //}
+        }
+        else
+        {
+            Debug.Log("No objects within range found.");
+        }
+
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -57,16 +101,16 @@ public class GameManager : MonoBehaviour
             MenuControl();
         }
 
+
         Vector3 currentMousePosition = GetMousePosition();
         bool isPlayerTurn = IsPlayerTurn(currentMousePosition);
 
         switch (GameState)
         {
-
-
             case ControlState.Play:
                 pc.ChangePlayStatus(true);
-                if (Menu != null) {
+                if (Menu != null)
+                {
                     Menu.SetActive(false);
                 }
                 PlayerClickControls(isPlayerTurn, currentMousePosition);
@@ -76,17 +120,29 @@ public class GameManager : MonoBehaviour
             case ControlState.Menu:
 
                 pc.ChangePlayStatus(false);
-                if (Menu != null) {
+                if (Menu != null)
+                {
                     Menu.SetActive(true);
                 }
                 // Menu.SetActive(true);
                 MoveCursor(currentMousePosition, isPlayerTurn);
                 break;
 
+            case ControlState.ShopMenu:
+
+                pc.ChangePlayStatus(false);
+                if (ShopMenu != null)
+                {
+                    ShopMenu.SetActive(true);
+                }
+                MoveCursor(currentMousePosition, isPlayerTurn);
+                break;
+
             case ControlState.Dialogue:
 
                 pc.ChangePlayStatus(false);
-                if (Menu != null) {
+                if (Menu != null)
+                {
                     Menu.SetActive(false);
                 }
                 NullifyCrossHair();
@@ -94,7 +150,8 @@ public class GameManager : MonoBehaviour
 
             case ControlState.Dead:
 
-                if (Menu != null) {
+                if (Menu != null)
+                {
                     Menu.SetActive(false);
                 }
                 pc.ChangePlayStatus(false);
@@ -104,11 +161,13 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void DialogueStateStart() {
+    public void DialogueStateStart()
+    {
         GameState = ControlState.Dialogue;
     }
 
-    private void NullifyCrossHair() {
+    private void NullifyCrossHair()
+    {
         cursorSprite.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
     }
 
@@ -127,7 +186,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void PlayerClickControls(bool isPlayerTurn, Vector3 currentMousePosition) {
+    private void PlayerClickControls(bool isPlayerTurn, Vector3 currentMousePosition)
+    {
 
 
         if (Input.GetMouseButtonDown(0))

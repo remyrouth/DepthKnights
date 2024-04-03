@@ -11,6 +11,7 @@ public class GatBatController : MonoBehaviour
     private GameObject gunHolster;
     public GunData gunChosen;
     private GameManager gm;
+    private SoundManager sm;
 
     private PlayerController pc;
     private GameObject PlayerBatHoldPosition;
@@ -27,6 +28,8 @@ public class GatBatController : MonoBehaviour
 
         pc = FindObjectOfType<PlayerController>();
         PlayerBatHoldPosition = pc.BatPosFinder();
+
+        sm = FindObjectOfType<SoundManager>();
     }
 
     private void Update()
@@ -46,9 +49,11 @@ public class GatBatController : MonoBehaviour
         }
     }
 
+    private bool canShoot = true;
+
     public void ShootBullet() {
         // Check if the gunChosen is not null and has a bullet prefab
-        if (gunChosen != null && gunChosen.bulletPrefab != null) {
+        if (gunChosen != null && gunChosen.bulletPrefab != null && canShoot) {
             // Instantiate a new bullet from the gun's bullet prefab
             GameObject bulletObj = Instantiate(gunChosen.bulletPrefab, gunHolster.transform.position, gunHolster.transform.rotation);
             
@@ -58,7 +63,23 @@ public class GatBatController : MonoBehaviour
             // // Set bullet damage and speed based on gunChosen properties
             // bulletController.damage = gunChosen.bulletDamage;
             // bulletController.speed = gunChosen.bulletSpeed;
+
+
+
+
+            sm.newConstantAudio(gunChosen.volume, gunChosen.distanceToHear, gunChosen.shootSound,
+             gunChosen.loopable, transform.position);
+            //public AudioSource newConstantAudio(float volume,
+            // float distanceToHear, AudioClip clip, bool loopable, Vector3 soundPosition)
+
+            canShoot = false;
+            float reloadRate = gunChosen.shootSpeed;
+            Invoke("ReloadGun", reloadRate);
         }
+    }
+
+    private void ReloadGun() {
+        canShoot = true;
     }
 
     void LookAtMouse() {

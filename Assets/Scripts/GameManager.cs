@@ -202,23 +202,44 @@ public class GameManager : MonoBehaviour
     private void PlayerClickControls(bool isPlayerTurn, Vector3 currentMousePosition)
     {
 
-
+        // Eden Attack
         if (Input.GetMouseButtonDown(0))
         {
-            if (isPlayerTurn)
-            {
-                // Debug.Log("attack debug activated");
-                pc.StartEdenAttackType1();
-            }
-            else
-            {
-                // gbc.SetTargetPosition(currentMousePosition);
-                if (gbc != null)
-                {
-                    gbc.ShootBullet();
-                }
-                // gbc.ShootBullet();
-            }
+            pc.StartEdenAttackType1();
+            // if (isPlayerTurn)
+            // {
+            //     // Debug.Log("attack debug activated");
+            //     pc.StartEdenAttackType1();
+            // }
+            // else
+            // {
+            //     // gbc.SetTargetPosition(currentMousePosition);
+            //     if (gbc != null)
+            //     {
+            //         gbc.ShootBullet();
+            //     }
+            //     // gbc.ShootBullet();
+            // }
+        }
+
+        // GatBat Attack
+        if (Input.GetMouseButtonDown(1))
+        {
+            gbc.ShootBullet();
+            // if (isPlayerTurn)
+            // {
+            //     // Debug.Log("attack debug activated");
+            //     pc.StartEdenAttackType1();
+            // }
+            // else
+            // {
+            //     // gbc.SetTargetPosition(currentMousePosition);
+            //     if (gbc != null)
+            //     {
+            //         gbc.ShootBullet();
+            //     }
+            //     // gbc.ShootBullet();
+            // }
         }
 
     }

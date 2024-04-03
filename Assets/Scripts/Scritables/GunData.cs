@@ -12,6 +12,16 @@ public class GunData : ScriptableObject
 
     public GameObject bulletPrefab;
 
+
+
+
+    public float volume = 0.4f;
+    public float distanceToHear = 0.5f;
+    public AudioClip shootSound;
+    public bool loopable = false;
+        //public AudioSource newConstantAudio(float volume,
+        // float distanceToHear, AudioClip clip, bool loopable, Vector3 soundPosition)
+
     private void OnEnable()
     {
         // Initialize currentBulletCount to maxBulletCount when the object is created

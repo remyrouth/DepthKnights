@@ -15,6 +15,10 @@ MonoBehaviour:
   gunSprite: {fileID: 21300000, guid: 3dcf101abcadb4485a9f9839f49d80f9, type: 3}
   maxBulletCount: 10
   currentBulletCount: 10
-  shootSpeed: 0.5
+  shootSpeed: 1
   offset: -0.109
   bulletPrefab: {fileID: 5904884257786698503, guid: aaa143fba51e04a9681ddf9d41e2192e, type: 3}
+  volume: 0.075
+  distanceToHear: 100
+  shootSound: {fileID: 8300000, guid: 349980186bdf04ce8865f29281ecc882, type: 3}
+  loopable: 0

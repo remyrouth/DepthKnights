@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1607157700003419661}
-  - component: {fileID: 6773243254067939302}
-  m_Layer: 0
+  - component: {fileID: 8828081103240170661}
+  m_Layer: 7
   m_Name: GunSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5158949090664276197}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6773243254067939302
+--- !u!212 &8828081103240170661
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -93,9 +93,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 258986106725498707}
-  - component: {fileID: 7140670689899548903}
   - component: {fileID: 1876086077143322285}
-  m_Layer: 0
+  - component: {fileID: 8397081862543376046}
+  m_Layer: 7
   m_Name: GatBat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5022197665784353132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7140670689899548903
+--- !u!95 &1876086077143322285
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076806816516142545}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0ead0cd10b7194a1ba70393473f03328, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!212 &8397081862543376046
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,7 +158,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -169,27 +190,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &1876086077143322285
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076806816516142545}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0ead0cd10b7194a1ba70393473f03328, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2978051597704318124
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5022197665784353132}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BatHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5158949090664276197}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GunHolster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 6247998348150582959}
   - component: {fileID: 674943500666101390}
   - component: {fileID: 5488568009165626362}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GatBat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -348,4 +348,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   gunChosen: {fileID: 11400000, guid: e26d00241c35440ac979c7a997ae3398, type: 2}
-  canFollowPlayer: 1
+  maxDistanceAllowed: 5

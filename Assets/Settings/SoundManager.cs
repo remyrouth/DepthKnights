@@ -155,7 +155,7 @@ public class SoundManager : MonoBehaviour
 
     // public void newConstantAudio(float volume, float distanceToHear, AudioSource source, AudioClip clip, bool loopable) {
     public AudioSource newConstantAudio(float volume, float distanceToHear, AudioClip clip, bool loopable, Vector3 soundPosition) {
-        // Debug.Log("New Audio");
+        Debug.Log("New Audio");
         AudioSource source = gameObject.AddComponent<AudioSource>();
         ConstantAudios newAudio = new ConstantAudios();
         newAudio.SetUp(volume, distanceToHear, source, clip, loopable, soundPosition);

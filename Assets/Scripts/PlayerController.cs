@@ -497,8 +497,19 @@ public class PlayerController : MonoBehaviour
                 // rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
 
             }
+
+            if (!isCrouched && !IsGrounded()) {
+                MultiJump mj = GetComponent<MultiJump>();
+
+                if (mj != null) {
+                    if (mj.enabled) {
+                        mj.TriggerJump();
+                    }
+                }
+            }
         }
     }
+
 
     //void OnTriggerEnter2D(Collider2D collision)
     //{   

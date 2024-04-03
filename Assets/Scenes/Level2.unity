@@ -21633,6 +21633,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &954057822 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8461310587666913864, guid: 3c214eebaa9f2475bbd8b1e46c250f94, type: 3}
+  m_PrefabInstance: {fileID: 1240005851}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &962796532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22238,11 +22243,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1430201856439055836, guid: 3c214eebaa9f2475bbd8b1e46c250f94, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 34
+      value: -3.1
       objectReference: {fileID: 0}
     - target: {fileID: 1430201856439055836, guid: 3c214eebaa9f2475bbd8b1e46c250f94, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -25
+      value: -2.7
       objectReference: {fileID: 0}
     - target: {fileID: 1430201856439055836, guid: 3c214eebaa9f2475bbd8b1e46c250f94, type: 3}
       propertyPath: m_LocalPosition.z
@@ -22348,7 +22353,10 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 8632574187094823554, guid: 3c214eebaa9f2475bbd8b1e46c250f94, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8461310587666913864, guid: 3c214eebaa9f2475bbd8b1e46c250f94, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1612824505}
   m_SourcePrefab: {fileID: 100100000, guid: 3c214eebaa9f2475bbd8b1e46c250f94, type: 3}
 --- !u!1 &1240005853 stripped
 GameObject:
@@ -72754,6 +72762,34 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1430201856439055836, guid: 3c214eebaa9f2475bbd8b1e46c250f94, type: 3}
   m_PrefabInstance: {fileID: 1240005851}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1612824505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954057822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5abcc42d1bb7a41b790ef3ed52828c95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraJumpCount: 4
+  canJumpAgainRate: 0.2
+  offGroundAirJumpDelay: 0.4
+  jumpForce: 24
+  maxUpwardVelocity: 10
+  VFXFrameRate: 0.1
+  opacityFadeRate: 0.001
+  particleList:
+  - {fileID: 21300000, guid: c3c4cc3f18fd847e49b960b947e63183, type: 3}
+  - {fileID: 21300000, guid: 15460b07029ea4452ba069a605e938af, type: 3}
+  - {fileID: 21300000, guid: 9151e4af4c8a44c98a61f615f280ed7f, type: 3}
+  yOffset: 0.5
+  spawnList: []
+  volume: 0.5
+  distanceToHear: 3
+  AbilitySound: {fileID: 8300000, guid: 4a9fa32e51f254df3bdcb5a862962860, type: 3}
 --- !u!1001 &1649962957
 PrefabInstance:
   m_ObjectHideFlags: 0

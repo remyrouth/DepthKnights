@@ -79,16 +79,18 @@ public class FallBlockTrapController : MonoBehaviour
         if (!canParticle) {
             particleObject.gameObject.SetActive(false);
         } else {
-            particleObject.gameObject.SetActive(true);
 
-            particleObject.sprite = smashParticles[currentIndex];
-            currentIndex++;
             
-            if (currentIndex > particleCount) {
+            if (currentIndex >= particleCount) {
                 currentIndex = 0;
                 canParticle = false;
                 SmashParticles();
             } else {
+                particleObject.gameObject.SetActive(true);
+
+                particleObject.sprite = smashParticles[currentIndex];
+                currentIndex++;
+
                 Invoke("SmashParticles", particleFrameRate);
             }
 
@@ -234,6 +236,7 @@ public class FallBlockTrapController : MonoBehaviour
                 CreateSound();
                 DamageCheck();
 
+                particleObject.gameObject.SetActive(true);
                 currentIndex = 0;
                 canParticle = true;
                 SmashParticles();

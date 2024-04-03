@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class FallBlockTrapController : MonoBehaviour
 {
+    [Header("Object Variables")]
     public Transform bottomFallPoint;
     public Transform topRisePoint;
     public GameObject fallBlockStone;
-    private SpriteRenderer fbRenderer;
+    public SpriteRenderer fbRenderer;
     //distance between gameobject position and its
     // sprite renderer bounds
     private float centerSpriteRendererOffset;
@@ -15,11 +16,24 @@ public class FallBlockTrapController : MonoBehaviour
     private UnityEngine.Rendering.Universal.Light2D light2D;
     private float maxIntensity; 
 
+    [Header("Movement Variables")]
     public float initialDelay;
 
     public float fallRate;
     public float riseRate;
     public float RechargeRate;
+
+    [Header("Sound Variables")]
+    public float volume = 0.4f;
+    public float distanceToHear = 0.5f;
+    public AudioClip slamSound;
+    public bool loopable = false;
+    private SoundManager sm; 
+
+    [Header("Damage Variables")]
+    public Vector4 hitBoxOffset;
+    public bool showBounds = false;
+    private PlayerController pc;
 
 
 
@@ -34,6 +48,9 @@ public class FallBlockTrapController : MonoBehaviour
 
         centerSpriteRendererOffset = Vector3.Distance(fallBlockStone.transform.position,topBounds);
         Invoke("EnableTrapCycle", initialDelay);
+
+        sm = FindObjectOfType<SoundManager>();
+        pc = FindObjectOfType<PlayerController>();
     }
 
     private bool canMove = false;
@@ -45,6 +62,7 @@ public class FallBlockTrapController : MonoBehaviour
     private void Update() {
         RiseAndFallController();
         Recharge();
+        OnDrawGizmosSelected();
     }
     private float currentCharge = 100f;
     private void Recharge() {
@@ -63,6 +81,101 @@ public class FallBlockTrapController : MonoBehaviour
             glowTextRenderer.color = newColor;
         }
         // Debug.Log(alphaPercentage);
+    }
+
+    private void CreateSound() {
+        sm.newConstantAudio(volume, distanceToHear, slamSound,
+            loopable, transform.position);
+    }
+
+    private void DamageCheck() {
+        if (IsPositionWithinBounds(pc.gameObject.transform.position, fbRenderer)) {
+            pc.DecreaseHealth(1f);
+        }
+    }
+
+    // Method to check if a position is within the bounds of a SpriteRenderer
+    public bool IsPositionWithinBounds(Vector3 position, SpriteRenderer spriteRenderer)
+    {
+        // Get the bounds of the SpriteRenderer
+        Bounds bounds = spriteRenderer.bounds;
+
+        // Horizontal
+        float minAddativeX = hitBoxOffset.x;
+        float maxSubtractiveY = hitBoxOffset.y;
+
+        // Vertical
+        float minAddativeZ = hitBoxOffset.z;
+        float maxSubtractiveW = hitBoxOffset.w;
+
+        // Check if the position is within the bounds
+        if (position.x >= bounds.min.x + minAddativeX && position.x <= bounds.max.x -  maxSubtractiveY
+        && position.y >= bounds.min.y + minAddativeZ && position.y <= bounds.max.y - maxSubtractiveW) 
+        // && .z >= bounds.min.z && position.z <= bounds.max.z)
+        {
+            Debug.Log("MinX is " + bounds.min.x);
+            Debug.Log("MaxX is " + bounds.max.x);
+            Debug.Log("PlayerPosX is " + position.x);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (showBounds) {
+            DrawBoundsGizmo();
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (showBounds) {
+            DrawBoundsGizmo();
+        }
+
+    }
+
+    private void DrawBoundsGizmo()
+    {
+        // if (fbRenderer == null)
+        //     return;
+
+        // Horizontal
+        float minAddativeX = hitBoxOffset.x;
+        float maxSubtractiveY = hitBoxOffset.y;
+
+        // Vertical
+        float minAddativeZ = hitBoxOffset.z;
+        float maxSubtractiveW = hitBoxOffset.w;
+
+        Bounds bounds = fbRenderer.bounds;
+        // Debug.Log(bounds);
+        Vector3 boundsCenter = bounds.center;
+        Vector3 boundsExtents = bounds.extents;
+
+        // Calculate the corners of the bounds
+        Vector3 topLeft = boundsCenter + new Vector3(-boundsExtents.x + minAddativeX, boundsExtents.y - maxSubtractiveW, 0);
+        Vector3 topRight = boundsCenter + new Vector3(boundsExtents.x - maxSubtractiveY, boundsExtents.y - maxSubtractiveW, 0);
+        Vector3 bottomLeft = boundsCenter + new Vector3(-boundsExtents.x + minAddativeX, -boundsExtents.y + minAddativeZ, 0);
+        Vector3 bottomRight = boundsCenter + new Vector3(boundsExtents.x - maxSubtractiveY, -boundsExtents.y + minAddativeZ, 0);
+
+
+        // // Calculate the corners of the bounds
+        // Vector3 topLeft = boundsCenter + new Vector3(-boundsExtents.x, boundsExtents.y, 0);
+        // Vector3 topRight = boundsCenter + new Vector3(boundsExtents.x, boundsExtents.y, 0);
+        // Vector3 bottomLeft = boundsCenter + new Vector3(-boundsExtents.x, -boundsExtents.y, 0);
+        // Vector3 bottomRight = boundsCenter + new Vector3(boundsExtents.x, -boundsExtents.y, 0);
+
+        // Draw lines between the corners to outline the bounds
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(topLeft, topRight);
+        Gizmos.DrawLine(topRight, bottomRight);
+        Gizmos.DrawLine(bottomRight, bottomLeft);
+        Gizmos.DrawLine(bottomLeft, topLeft);
     }
 
 
@@ -85,6 +198,8 @@ public class FallBlockTrapController : MonoBehaviour
             {
                 fallingCycle = false; // Because now we should start rising
                 currentCharge = 0f;
+                CreateSound();
+                DamageCheck();
             }
         }
         else

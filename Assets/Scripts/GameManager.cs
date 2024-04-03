@@ -1,11 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -17,7 +12,7 @@ public class GameManager : MonoBehaviour
         Play,
         Menu,
         Dialogue,
-        ShopMenu,
+        shopMenu,
         Dead
     }
     private ControlState GameState;
@@ -32,7 +27,7 @@ public class GameManager : MonoBehaviour
     public float playerReachRadius = 2f;
     public GameObject cursorObject;
     public GameObject Menu;
-    public GameObject ShopMenu;
+    public GameObject shopMenu;
     private SpriteRenderer cursorSprite;
     public Color playerTurnColor;
     public Color batTurnColor;
@@ -58,40 +53,53 @@ public class GameManager : MonoBehaviour
         dc = FindObjectOfType<DialogueController>();
     }
 
-    public void checkdistancetoallinteractables()
+    public void CheckAllInteractables()
     {
-        // collect all objects with ineractale tag
-        // choose closest one that is also within distance of 3f
+        // Get all objects with the tag "Interactable"
+        GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
 
-        GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("Interactable");
-        GameObject closestObject = null;
+        // Player position
         Vector3 playerPosition = pc.gameObject.transform.position;
-        float closestDistance = Mathf.Infinity;
-        float searchRange = 3f;
-        
 
-        foreach (GameObject obj in objectsWithTag)
+        // List to hold interactables within 2 units of the player
+        List<GameObject> nearbyInteractables = new List<GameObject>();
+
+        // Filter interactables to find those within 2 units of the player
+        foreach (GameObject interactable in interactables)
         {
-            float distanceToPlayer = Vector3.Distance(obj.transform.position, playerPosition);
-            if (distanceToPlayer <= searchRange && distanceToPlayer < closestDistance)
+            float distance = Vector3.Distance(interactable.transform.position, playerPosition);
+            // Debug.Log(distance);
+            if (distance <= 2f)
             {
-                closestObject = obj;
-                closestDistance = distanceToPlayer;
+                nearbyInteractables.Add(interactable);
             }
         }
 
-        if (closestObject != null)
+        Debug.Log("Found total interactables: " + nearbyInteractables.Count );
+        GameObject closest = GetClosetInteractableToPlayer(nearbyInteractables, playerPosition);
+
+
+        GameState = ControlState.shopMenu;
+
+
+    }
+
+    private GameObject GetClosetInteractableToPlayer(List<GameObject> nearbyInteractables, Vector3 playerPos) {
+        // Find the closest interactable
+        GameObject closestInteractable = nearbyInteractables[0];
+        float closestDistance = Vector3.Distance(closestInteractable.transform.position, playerPos);
+
+        foreach (GameObject interactable in nearbyInteractables)
         {
-            Debug.Log("Closest Object Found: " + closestObject.name);
-            //if(closestObject.name == "Shop"){
-            //    GameState = ControlState.ShopMenu;
-            //}
-        }
-        else
-        {
-            Debug.Log("No objects within range found.");
+            float distance = Vector3.Distance(interactable.transform.position, playerPos);
+            if (distance < closestDistance)
+            {
+                closestInteractable = interactable;
+                closestDistance = distance;
+            }
         }
 
+        return closestInteractable;
     }
 
     private void Update()
@@ -112,6 +120,7 @@ public class GameManager : MonoBehaviour
                 if (Menu != null)
                 {
                     Menu.SetActive(false);
+                    shopMenu.SetActive(false);
                 }
                 PlayerClickControls(isPlayerTurn, currentMousePosition);
                 MoveCursor(currentMousePosition, isPlayerTurn);
@@ -123,17 +132,19 @@ public class GameManager : MonoBehaviour
                 if (Menu != null)
                 {
                     Menu.SetActive(true);
+                    shopMenu.SetActive(false);
                 }
                 // Menu.SetActive(true);
                 MoveCursor(currentMousePosition, isPlayerTurn);
                 break;
 
-            case ControlState.ShopMenu:
+            case ControlState.shopMenu:
 
                 pc.ChangePlayStatus(false);
-                if (ShopMenu != null)
+                if (shopMenu != null)
                 {
-                    ShopMenu.SetActive(true);
+                    shopMenu.SetActive(true);
+                    Menu.SetActive(false);
                 }
                 MoveCursor(currentMousePosition, isPlayerTurn);
                 break;
@@ -144,6 +155,7 @@ public class GameManager : MonoBehaviour
                 if (Menu != null)
                 {
                     Menu.SetActive(false);
+                    shopMenu.SetActive(false);
                 }
                 NullifyCrossHair();
                 break;
@@ -153,6 +165,7 @@ public class GameManager : MonoBehaviour
                 if (Menu != null)
                 {
                     Menu.SetActive(false);
+                    shopMenu.SetActive(false);
                 }
                 pc.ChangePlayStatus(false);
 

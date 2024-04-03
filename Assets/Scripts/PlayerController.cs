@@ -243,7 +243,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             //Debug.Log("Interacting");
-            gm.checkdistancetoallinteractables();
+            gm.CheckAllInteractables();
         }
 
         // rb.constraints =  RigidbodyConstraints2D.FreezeRotation;

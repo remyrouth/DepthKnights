@@ -35,6 +35,11 @@ public class FallBlockTrapController : MonoBehaviour
     public bool showBounds = false;
     private PlayerController pc;
 
+    public List<Sprite> smashParticles = new List<Sprite>();
+    public SpriteRenderer particleObject;
+    private float particleCount;
+    public float particleFrameRate = 0.2f;
+
 
 
     private void Start() {
@@ -51,6 +56,8 @@ public class FallBlockTrapController : MonoBehaviour
 
         sm = FindObjectOfType<SoundManager>();
         pc = FindObjectOfType<PlayerController>();
+
+        particleCount = smashParticles.Count;
     }
 
     private bool canMove = false;
@@ -64,6 +71,32 @@ public class FallBlockTrapController : MonoBehaviour
         Recharge();
         OnDrawGizmosSelected();
     }
+
+    private bool canParticle = false;
+    private int currentIndex = 0;
+
+    private void SmashParticles() {
+        if (!canParticle) {
+            particleObject.gameObject.SetActive(false);
+        } else {
+            particleObject.gameObject.SetActive(true);
+
+            particleObject.sprite = smashParticles[currentIndex];
+            currentIndex++;
+            
+            if (currentIndex > particleCount) {
+                currentIndex = 0;
+                canParticle = false;
+                SmashParticles();
+            } else {
+                Invoke("SmashParticles", particleFrameRate);
+            }
+
+        }
+    }
+
+
+
     private float currentCharge = 100f;
     private void Recharge() {
         currentCharge += RechargeRate;
@@ -200,6 +233,10 @@ public class FallBlockTrapController : MonoBehaviour
                 currentCharge = 0f;
                 CreateSound();
                 DamageCheck();
+
+                currentIndex = 0;
+                canParticle = true;
+                SmashParticles();
             }
         }
         else

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 32d1a7d819f8a4535bbc74b010992041
+guid: 7557985e6975b49419928f0e764c318d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -75,30 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -111,19 +90,72 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerShield2_0
+      name: Crab_AttackC_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 2560
-        width: 640
-        height: 2560
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +163,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f565214518f0e4f95b17a88a3bdb30c7
-      internalID: -317292640
+      spriteID: 44ace6e55f9534773854aeb10e77ae80
+      internalID: -771247914
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerShield2_1
+      name: Crab_AttackC_1
       rect:
         serializedVersion: 2
-        x: 640
-        y: 2560
-        width: 640
-        height: 2560
+        x: 64
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +184,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ef48d467ac9f449d9601f25858d9cb5
-      internalID: 2128180801
+      spriteID: e01cdf846aef248aeb60780f808c298a
+      internalID: -288617314
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerShield2_2
+      name: Crab_AttackC_2
       rect:
         serializedVersion: 2
-        x: 1280
-        y: 2560
-        width: 640
-        height: 2560
+        x: 128
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +205,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27a83646754ce48fbb2536f0c9d39cf9
-      internalID: 1353698886
+      spriteID: d05540e0860ea4eb9aa9386ae760a31d
+      internalID: 1117309034
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerShield2_3
+      name: Crab_AttackC_3
       rect:
         serializedVersion: 2
-        x: 1920
-        y: 2560
-        width: 640
-        height: 2560
+        x: 192
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +226,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38803796f3b7a471399bafe183d9ef39
-      internalID: 1150906391
+      spriteID: 471e6cbdae0b44e57a251945d261ac91
+      internalID: -1615334544
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerShield2_4
+      name: Crab_AttackC_4
       rect:
         serializedVersion: 2
-        x: 2560
-        y: 2560
-        width: 640
-        height: 2560
+        x: 0
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +247,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b14536122edac4617b04b2201ecf62ce
-      internalID: 1672802743
+      spriteID: 2f56c3b039c064f93b21e80e066c4069
+      internalID: 1439836126
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerShield2_5
+      name: Crab_AttackC_5
       rect:
         serializedVersion: 2
-        x: 3200
-        y: 2560
-        width: 640
-        height: 2560
+        x: 64
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,20 +268,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d20da8b49ac74b05bd4b3650b28603c
-      internalID: -478057145
+      spriteID: 56ae1da3ae540434db54a3a1d7944135
+      internalID: 1930755127
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerShield2_6
+      name: Crab_AttackC_6
       rect:
         serializedVersion: 2
-        x: 3840
-        y: 2560
-        width: 640
-        height: 2560
+        x: 128
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,20 +289,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad50138bbb44c4ebe825c3d4420b8e23
-      internalID: -1400502405
+      spriteID: 0716e15e4e92f465ebceb0462daf3438
+      internalID: 1170411104
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerShield2_7
+      name: Crab_AttackC_7
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7436641b8dfeb43bcb1aac9743a7c142
+      internalID: -649332053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Crab_AttackC_8
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 640
-        height: 2560
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,20 +331,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72ca1732e43b74e78b97e1a054f0d2dd
-      internalID: 1167901488
+      spriteID: d4dd5d86aaa3645b980e19177b26442d
+      internalID: -1609768031
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerShield2_8
+      name: Crab_AttackC_9
       rect:
         serializedVersion: 2
-        x: 640
+        x: 64
         y: 0
-        width: 640
-        height: 2560
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -299,20 +352,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 659b4db05d6024ff69eb6e9f484c7f6f
-      internalID: 1173449537
+      spriteID: d9308b11204e34b8d81d8c8078bc7917
+      internalID: 780268813
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerShield2_9
+      name: Crab_AttackC_10
       rect:
         serializedVersion: 2
-        x: 1280
+        x: 128
         y: 0
-        width: 640
-        height: 2560
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -320,92 +373,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 083899dd426df4e309d4fc890f8b76ea
-      internalID: 2068588292
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerShield2_10
-      rect:
-        serializedVersion: 2
-        x: 1920
-        y: 0
-        width: 640
-        height: 2560
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3e2c06d7b2ead42f4bf3993d3dbfa636
-      internalID: 1815750203
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerShield2_11
-      rect:
-        serializedVersion: 2
-        x: 2560
-        y: 0
-        width: 640
-        height: 2560
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d1151688b262641589f24560f21aeda4
-      internalID: 1580026277
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerShield2_12
-      rect:
-        serializedVersion: 2
-        x: 3200
-        y: 0
-        width: 640
-        height: 2560
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4b1a387fd87994f70a2b905eadb3b511
-      internalID: -1803329429
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerShield2_13
-      rect:
-        serializedVersion: 2
-        x: 3840
-        y: 0
-        width: 640
-        height: 2560
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: add3cabc1cae7449c9b810fe2197bdd7
-      internalID: -2094258883
+      spriteID: 0ab0f230e5e5547e69419795fdb919f1
+      internalID: -1167311889
       vertices: []
       indices: 
       edges: []
@@ -421,23 +390,19 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PlayerShield2_11: 1580026277
-      PlayerShield2_4: 1672802743
-      PlayerShield2_12: -1803329429
-      PlayerShield2_3: 1150906391
-      PlayerShield2_7: 1167901488
-      PlayerShield2_8: 1173449537
-      PlayerShield2_13: -2094258883
-      PlayerShield2_9: 2068588292
-      PlayerShield2_2: 1353698886
-      PlayerShield2_1: 2128180801
-      PlayerShield2_6: -1400502405
-      PlayerShield2_10: 1815750203
-      PlayerShield2_5: -478057145
-      PlayerShield2_0: -317292640
-  spritePackingTag: 
+      Crab_AttackC_0: -771247914
+      Crab_AttackC_1: -288617314
+      Crab_AttackC_10: -1167311889
+      Crab_AttackC_2: 1117309034
+      Crab_AttackC_3: -1615334544
+      Crab_AttackC_4: 1439836126
+      Crab_AttackC_5: 1930755127
+      Crab_AttackC_6: 1170411104
+      Crab_AttackC_7: -649332053
+      Crab_AttackC_8: -1609768031
+      Crab_AttackC_9: 780268813
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

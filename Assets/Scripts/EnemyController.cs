@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour
     public string gfxChildName = "gfx";
     public float attentionSpan = 4f;
     public float detectionRange = 6f;
+    public float walkDetectionRange = 1f;
     public Capabilities entityCapabilities;
     private bool isAgro = false;
 
@@ -304,6 +305,8 @@ public class EnemyController : MonoBehaviour
         // Debug.Log("Ended Attack");
     }
 
+    
+
     private bool CanMoveForward() {
         Vector2 forwardDirection = Vector2.right;
         if (facingLeft) {
@@ -313,14 +316,14 @@ public class EnemyController : MonoBehaviour
         int groundLayerMask = LayerMask.GetMask("Ground", "Breakable");
 
         // Raycast to the right
-        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, forwardDirection, attackRange, groundLayerMask);
-        Debug.DrawRay(transform.position, forwardDirection * 5f, Color.green);
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, forwardDirection, walkDetectionRange, groundLayerMask);
+        Debug.DrawRay(transform.position, forwardDirection * walkDetectionRange, Color.green);
 
         // Raycast to the right downward at a 45-degree angle
         float angle = facingLeft ? -315 : 315; // Adjust the angle based on facing direction
         Vector2 direction = Quaternion.Euler(0, 0, angle) * forwardDirection;
-        RaycastHit2D hitRightDown = Physics2D.Raycast(transform.position, direction, attackRange, groundLayerMask);
-        Debug.DrawRay(transform.position, direction * 5f, Color.blue);
+        RaycastHit2D hitRightDown = Physics2D.Raycast(transform.position, direction, walkDetectionRange, groundLayerMask);
+        Debug.DrawRay(transform.position, direction * walkDetectionRange, Color.blue);
 
 
         // Check if the ray hits something

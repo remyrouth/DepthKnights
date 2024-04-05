@@ -173,6 +173,14 @@ public class PlayerController : MonoBehaviour
                 return;
             }
 
+            CrabController cc = attackHit.collider.gameObject.GetComponent<CrabController>();
+            if (cc != null) {
+                Debug.Log("Lever hit");
+                cc.DecreaseHealth();
+                // DealDamageOnTriggerAttackFrame();
+                return;
+            }
+
             Debug.Log("called on nothing");
         }
         // damageActivated = true;

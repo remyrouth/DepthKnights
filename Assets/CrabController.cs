@@ -10,22 +10,33 @@ public class CrabController : MonoBehaviour
     // 4 = attack2
     // 5 = attack1
     // 6 = ability
-
+    [Header("Movement Variables")]
     public BossState crabState = BossState.Idle;
 
+    public float moveSpeed = 4f;
+    public int health;
+    [Header("Attack Variables")]
+    public float InitalAgroDelay = 2f;
+    public float closeRangeTriggerRange = 1.2f;
     [Range(0, 100)]
     public int closeRangePercentageChance = 50; // Percentage chance of getting true
-    public float moveSpeed = 4f;
-    public float closeRangeTriggerRange = 1.2f;
 
+
+    [Header("Animation Variables")]
     public List<int> ShortRangeAnimInts = new List<int>();
     public List<int> LongRangeAnimInts = new List<int>();
 
-    public float InitalAgroDelay = 2f;
-
+    [Header("Sound Variables")]
+    // how attacks can be triggered
+    // one method access sound clip library, takes in an index
+    // one method to tell me y-offset(height of attack), and direction (front or back or both)
+    // one method that can jump in a directio if needed, float for force int / 360 to get direction
+    public List<SoundClass> SoundClips = new List<SoundClass>();
+    public float distanceToHear = 0.5f;
 
 
     private PlayerController pc;
+    private SoundManager sm;
     private Animator ani;
 
     public enum BossState {
@@ -41,10 +52,40 @@ public class CrabController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         ani = GetComponentInChildren<Animator>();
         pc = FindObjectOfType<PlayerController>();
+        sm = FindObjectOfType<SoundManager>();
 
         ResetAfterAttack(InitalAgroDelay);
+    }
+
+    public void PlaySpecificSound(int index) {
+        if (index >= SoundClips.Count) {
+            Debug.Log("Crab boss called for index of sound class list that does not exist");
+            return;
+        }
+
+        SoundClass sc = SoundClips[index];
+
+        sm.newConstantAudio(sc.volume, distanceToHear, sc.clip,
+         sc.loopable, transform.position);
+    }
+
+    
+
+    private bool isAlive = true;
+
+    public void DecreaseHealth() {
+        health--;
+        health = Mathf.Max(health, 0);
+        if (health == 0) {
+            crabState = BossState.Death;
+        }
+    }
+
+    public int GiveHealthToGFX() {
+        return health;
     }
 
     private void Update() {
@@ -54,6 +95,7 @@ public class CrabController : MonoBehaviour
     private bool canChooseNewAttack = true;
 
     private void StateMachine(BossState newState) {
+
         switch (newState) {
             case BossState.Run:
                 FacePlayer();  
@@ -100,12 +142,20 @@ public class CrabController : MonoBehaviour
                     FacePlayer();
                     SetAnimationState(0);
                     canChooseNewAttack = true;
-                break;                
+                break;      
+
+            case BossState.Death:
+                    SetAnimationState(2);
+                    canChooseNewAttack = false;
+                break;            
         }
     }
 
     // Triggered by animation controller frames
     public void ResetAfterAttack(float idleDuration) {
+        if (!isAlive) {
+            return;
+        }
         // Debug.Log("ResetAfterAttack actived");
         // idleDuration is how long we'll be in idle state before we attack
         crabState = BossState.Idle;
@@ -184,7 +234,11 @@ public class CrabController : MonoBehaviour
     
     private void SetAnimationState(int state)
     {
-        if (ani.GetInteger("AnimState") != state)
+        if (!isAlive) {
+            SetAnimationState(2);
+            return;
+        }
+        if (ani.GetInteger("AnimState") != state && GetCurrentAnimationState() != 2)
         {
             ani.SetInteger("AnimState", state);
         }
@@ -210,5 +264,14 @@ public class CrabController : MonoBehaviour
 
         // Return the integer at the randomly selected index
         return integerList[randomIndex];
+    }
+
+
+    [System.Serializable]
+    public class SoundClass
+    {
+        public AudioClip clip;
+        public float volume;
+        public bool loopable = false;
     }
 }

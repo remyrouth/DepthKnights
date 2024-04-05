@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CrabController : MonoBehaviour
-{
+{   
+
+    // NOTE : can get stuck in idle state... why?
+    
     // 1 = run
     // 2 = death
     // 3 = attack3

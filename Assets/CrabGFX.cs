@@ -27,4 +27,8 @@ public class CrabGFX : MonoBehaviour
     private void ResetAfterAttack(float idleDuration) {
         cc.ResetAfterAttack(idleDuration);
     }
+
+    private void PlaySpecificSound(int index) {
+        cc.PlaySpecificSound(index);
+    }
 }

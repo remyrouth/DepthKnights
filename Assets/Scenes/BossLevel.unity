@@ -684,7 +684,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.02432479, y: 0.009}
+  m_Offset: {x: 0.0111601055, y: -0.020222832}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -695,7 +695,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.22161302, y: 0.14701682}
+  m_Size: {x: 0.15064323, y: 0.08857115}
   m_EdgeRadius: 0
 --- !u!50 &377732800
 Rigidbody2D:
@@ -737,13 +737,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crabState: 4
-  closeRangePercentageChance: 50
   moveSpeed: 1.5
   health: 3
+  InitalAgroDelay: 2
   closeRangeTriggerRange: 1.2
+  closeRangePercentageChance: 50
   ShortRangeAnimInts: 030000000400000005000000
   LongRangeAnimInts: 06000000
-  InitalAgroDelay: 2
+  SoundClips:
+  - clip: {fileID: 8300000, guid: 3a880c1e2b3914b5d8579d1f5aa6c2de, type: 3}
+    volume: 1
+    loopable: 0
+  distanceToHear: 10
 --- !u!1001 &396705152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1039,7 +1044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3bfeca1db360409d9c3d20c3cb81f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBarSlider: {fileID: 0}
+  healthBarSlider: {fileID: 1830016323}
 --- !u!4 &614489305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8229597930840491232, guid: 46355c34453834aadaa699ea0f7df48e, type: 3}
@@ -10807,7 +10812,7 @@ GameObject:
   - component: {fileID: 1830016322}
   - component: {fileID: 1830016323}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: CrabHealthSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11048,5 +11053,5 @@ SceneRoots:
   - {fileID: 1401612222}
   - {fileID: 97186969}
   - {fileID: 242841713}
-  - {fileID: 377732798}
   - {fileID: 207675429}
+  - {fileID: 377732798}

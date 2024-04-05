@@ -97,6 +97,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.5833333
+    functionName: PlaySpecificSound
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: f3bfeca1db360409d9c3d20c3cb81f6d, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.75
     functionName: ResetAfterAttack
     data: 

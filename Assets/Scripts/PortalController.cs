@@ -7,6 +7,7 @@ public class PortalController : MonoBehaviour
     private SoundManager sm;
     public float volume = 0.8f;
     public float maxDistance = 3f;
+    public string SceneString = "MainMenu";
     public AudioClip clip;
 
     private GameManager gm;
@@ -28,7 +29,7 @@ public class PortalController : MonoBehaviour
             // Debug.Log("INSTANCE COLLIDER BY PLAYER");
             // Debug.Log("Collision Enter with player: " + collision.gameObject.name);
             // Additional actions specific to collision with the player
-            gm.StartScene("MainMenu");
+            gm.StartScene(SceneString);
             Collider2D collider = GetComponent<Collider2D>();
             if (collider != null) {
                 Destroy(collider);

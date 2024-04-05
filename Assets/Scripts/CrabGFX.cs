@@ -21,7 +21,11 @@ public class CrabGFX : MonoBehaviour
         float percentage = (float)currentHealth / maxHealth;
 
         Debug.Log("current health: " + currentHealth + "     max health: " + maxHealth + "    percentage: " + percentage);
-        healthBarSlider.value = percentage;
+
+        if (healthBarSlider != null) {
+            healthBarSlider.value = percentage;
+        }
+        // healthBarSlider.value = percentage;
     }
 
     private void ResetAfterAttack(float idleDuration) {

@@ -8,6 +8,7 @@ public class CameraToPlayer : MonoBehaviour
     public Transform eden;
     public Transform gatBat;
     public Image cutSceneTransition;
+    public float yOffset = 2f;
     private Image imageComponent;
     // private Color targetColor;
     private float transitionRateChange = 0f;
@@ -51,12 +52,12 @@ public class CameraToPlayer : MonoBehaviour
 
 
         if (gatBat == null && eden != null) {
-            transform.position = new Vector3(eden.position.x, eden.position.y, transform.position.z);
+            transform.position = new Vector3(eden.position.x, eden.position.y + yOffset, transform.position.z);
         } else if (gatBat != null && eden != null) {
             float newX = (eden.position.x + gatBat.position.x) / 2;
             float newY = (eden.position.y + gatBat.position.y) / 2;
             // float newZ = (eden.position.z + gatBat.position.z) / 2;
-            transform.position = new Vector3(newX, eden.position.y, transform.position.z);
+            transform.position = new Vector3(newX, eden.position.y + yOffset, transform.position.z);
         }
     }
 }

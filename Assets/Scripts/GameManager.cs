@@ -58,6 +58,11 @@ public class GameManager : MonoBehaviour
         // Get all objects with the tag "Interactable"
         GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
 
+        if (interactables.Length == 0) {
+            Debug.LogWarning("No Objects with the tag 'Interactable,' remember to add such a tag");
+            return;
+        }
+
         // Player position
         Vector3 playerPosition = pc.gameObject.transform.position;
 
@@ -77,6 +82,12 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Found total interactables: " + nearbyInteractables.Count );
         GameObject closest = GetClosetInteractableToPlayer(nearbyInteractables, playerPosition);
+
+        SummonerButtonController sbc = closest.GetComponent<SummonerButtonController>();
+        if (sbc != null) {
+            sbc.ButtonActivate();
+            return;
+        }
 
 
         GameState = ControlState.shopMenu;

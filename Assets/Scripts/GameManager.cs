@@ -83,21 +83,28 @@ public class GameManager : MonoBehaviour
         Debug.Log("Found total interactables: " + nearbyInteractables.Count );
         GameObject closest = GetClosetInteractableToPlayer(nearbyInteractables, playerPosition);
 
-        SummonerButtonController sbc = closest.GetComponent<SummonerButtonController>();
-        if (sbc != null) {
-            sbc.ButtonActivate();
-            return;
+        if (closest != null) {
+            SummonerButtonController sbc = closest.GetComponent<SummonerButtonController>();
+            if (sbc != null) {
+                sbc.ButtonActivate();
+                return;
+            }
+
+
+            GameState = ControlState.shopMenu;
         }
 
-
-        GameState = ControlState.shopMenu;
 
 
     }
 
     private GameObject GetClosetInteractableToPlayer(List<GameObject> nearbyInteractables, Vector3 playerPos) {
         // Find the closest interactable
-        GameObject closestInteractable = nearbyInteractables[0];
+        GameObject closestInteractable;
+        if (nearbyInteractables.Count == 0) {
+            return null;
+        }
+        closestInteractable = nearbyInteractables[0];
         float closestDistance = Vector3.Distance(closestInteractable.transform.position, playerPos);
 
         foreach (GameObject interactable in nearbyInteractables)
@@ -124,9 +131,11 @@ public class GameManager : MonoBehaviour
         Vector3 currentMousePosition = GetMousePosition();
         bool isPlayerTurn = IsPlayerTurn(currentMousePosition);
 
+        Color temp = cursorSprite.color;
         switch (GameState)
         {
             case ControlState.Play:
+
                 pc.ChangePlayStatus(true);
                 if (Menu != null)
                 {
@@ -135,6 +144,10 @@ public class GameManager : MonoBehaviour
                 }
                 PlayerClickControls(isPlayerTurn, currentMousePosition);
                 MoveCursor(currentMousePosition, isPlayerTurn);
+
+
+                temp.a = 1.0f;
+                cursorSprite.color = temp;
                 break;
 
             case ControlState.Menu:
@@ -147,6 +160,9 @@ public class GameManager : MonoBehaviour
                 }
                 // Menu.SetActive(true);
                 MoveCursor(currentMousePosition, isPlayerTurn);
+
+                temp.a = 0.0f;
+                cursorSprite.color = temp;
                 break;
 
             case ControlState.shopMenu:
@@ -158,6 +174,8 @@ public class GameManager : MonoBehaviour
                     Menu.SetActive(false);
                 }
                 MoveCursor(currentMousePosition, isPlayerTurn);
+                temp.a = 0.0f;
+                cursorSprite.color = temp;
                 break;
 
             case ControlState.Dialogue:
@@ -168,7 +186,10 @@ public class GameManager : MonoBehaviour
                     Menu.SetActive(false);
                     shopMenu.SetActive(false);
                 }
-                NullifyCrossHair();
+                // NullifyCrossHair();
+
+                temp.a = 0.0f;
+                cursorSprite.color = temp;
                 break;
 
             case ControlState.Dead:
@@ -180,6 +201,8 @@ public class GameManager : MonoBehaviour
                 }
                 pc.ChangePlayStatus(false);
 
+                temp.a = 0.0f;
+                cursorSprite.color = temp;
                 break;
         }
 

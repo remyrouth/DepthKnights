@@ -49,14 +49,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Characters
-    uniqueID: 1263236595
-    locked: 0
   - name: Enemies
     uniqueID: 924525313
     locked: 0
+  - name: Characters
+    uniqueID: 1263236595
+    locked: 0
   - name: Physical Environment
     uniqueID: 40408783
+    locked: 0
+  - name: FrontLayer
+    uniqueID: 586750653
     locked: 0
   - name: UI
     uniqueID: 3474132391

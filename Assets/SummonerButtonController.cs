@@ -25,11 +25,19 @@ public class SummonerButtonController : MonoBehaviour
     public float lineWidth = 0.1f;
     public Color color = Color.white;
 
-    [Header("Sounds Variables")]
+    [Header("Bell Sound Variables")]
     public AudioClip bellClip;
     public float bellVolume;
     public float distanceToHear;
     public bool Loopable = false;
+
+    [Header("Arrival Sound Variables")]
+    public float delayTillSFX = 0.5f;
+    public AudioClip ArrivalClip;
+    public float arrivalVolume;
+    public float arrivalDistanceToHear;
+    public bool arrivalLoopable = false;
+
     private SoundManager sm;
 
 
@@ -72,11 +80,27 @@ public class SummonerButtonController : MonoBehaviour
             StartCoroutine(MoveObjectDownward());  
             StartCoroutine(StartTyrantMove());  
 
-            // sm.newConstantAudio
+
+            TriggerBellSound();
 
             canActivate = false;     
         }
     }
+
+    private void TriggerBellSound() {
+        // public AudioSource newConstantAudio(float volume, 
+        // float distanceToHear, AudioClip clip, bool loopable, Vector3 soundPosition)
+        sm.newConstantAudio(bellVolume, distanceToHear, bellClip, Loopable, transform.position);
+
+        Invoke("TriggerArrivalSound", delayTillSFX);
+    }
+
+    private void TriggerArrivalSound() {
+        // public AudioSource newConstantAudio(float volume, 
+        // float distanceToHear, AudioClip clip, bool loopable, Vector3 soundPosition)
+        sm.newConstantAudio(arrivalVolume, arrivalDistanceToHear, ArrivalClip, arrivalLoopable, transform.position);
+    }
+    
 
     IEnumerator StartTyrantMove()
     {
@@ -100,6 +124,7 @@ public class SummonerButtonController : MonoBehaviour
 
         // Ensure the object reaches exactly to the target position
         Tyrant.transform.position = TyrantEndLerpPos.transform.position;
+        // TriggerArrivalSound();
 
         // Optional: You can perform any action after reaching the target position here
     }

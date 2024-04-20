@@ -95,7 +95,7 @@ public class MultiJump : MonoBehaviour
     }
 
     private void UpdateObjectSpritesUsed() {
-        Debug.Log("UpdateObjectSpritesUsed called");
+        // Debug.Log("UpdateObjectSpritesUsed called");
         for (int i = 0; i < spawnList.Count; i++) {
             GameObject vault = spawnList[i];
             if (vault != null) {

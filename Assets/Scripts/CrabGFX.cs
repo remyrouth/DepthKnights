@@ -20,7 +20,7 @@ public class CrabGFX : MonoBehaviour
         currentHealth = cc.GiveHealthToGFX();
         float percentage = (float)currentHealth / maxHealth;
 
-        Debug.Log("current health: " + currentHealth + "     max health: " + maxHealth + "    percentage: " + percentage);
+        //Debug.Log("current health: " + currentHealth + "     max health: " + maxHealth + "    percentage: " + percentage);
 
         if (healthBarSlider != null) {
             healthBarSlider.value = percentage;

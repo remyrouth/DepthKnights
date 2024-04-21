@@ -738,7 +738,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crabState: 4
   moveSpeed: 1.5
-  health: 3
+  health: 15
   InitalAgroDelay: 2
   closeRangeTriggerRange: 1.2
   closeRangePercentageChance: 50
@@ -795,6 +795,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1430201856439055836, guid: 3c214eebaa9f2475bbd8b1e46c250f94, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3180112604500934843, guid: 3c214eebaa9f2475bbd8b1e46c250f94, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4499165978572674193, guid: 3c214eebaa9f2475bbd8b1e46c250f94, type: 3}
@@ -10837,7 +10841,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -226.7, y: -9.9}
+  m_AnchoredPosition: {x: -226.70001, y: -9.900024}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1830016323

@@ -111,18 +111,42 @@ public class CrabController : MonoBehaviour
                 break;
 
             case BossState.AttackCloseRange:
-                // we can either choose to start running towards the player and then  choose a meelee attack
-                // or we can just attack using the long range option immediatly
-
-                if (canChooseNewAttack) {
-                    // 3, 4, 5
+                if (canChooseNewAttack)
+                {
                     int aniInt = SelectRandomInt(ShortRangeAnimInts);
                     SetAnimationState(aniInt);
 
                     canChooseNewAttack = false;
-                }
 
-                    
+                    // Perform damage dealing logic
+                    int playerLayerMask = LayerMask.GetMask("Player");
+                    Vector2 forwardDirection = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+                    RaycastHit2D hitForward = Physics2D.Raycast(transform.position, forwardDirection, 1.2f, playerLayerMask);
+
+                    if (hitForward.collider != null)
+                    {
+                        Debug.Log("Found player");
+
+                        PlayerController playerController = hitForward.collider.gameObject.GetComponent<PlayerController>();
+
+                        if (playerController != null)
+                        {
+                            playerController.DecreaseHealth(10f);
+
+                            Rigidbody2D playerRB = hitForward.collider.gameObject.GetComponent<Rigidbody2D>();
+                            if (playerRB != null)
+                            {
+                                Vector2 directionAway = (Vector2)transform.position - playerRB.position;
+                                directionAway.Normalize();
+                                playerRB.AddForce(directionAway * -1 * 1f, ForceMode2D.Impulse);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Did not find player");
+                    }
+                }
                 break;
 
 

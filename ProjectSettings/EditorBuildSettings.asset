@@ -20,4 +20,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level2.unity
     guid: 5e6bece52319149d49e466bf7a904474
+  - enabled: 1
+    path: Assets/Scenes/TheFall.unity
+    guid: 696d3798a158349d083a68d40302346d
+  - enabled: 1
+    path: Assets/Scenes/Bar.unity
+    guid: 9b82985aca604430291d8f4dd99bb098
+  - enabled: 1
+    path: Assets/Scenes/BossLevel.unity
+    guid: 974e1d00956e945f1acc11d6f7f8e503
   m_configObjects: {}
